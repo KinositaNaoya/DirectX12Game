@@ -121,7 +121,6 @@ void SceneGameClear::execute()
         }
     }
 
-    int iii = 0;
 
     XMVECTOR zero = XMVectorSet(10.0f,10.0f,10.0f,1.0f);
     XMVECTOR result = XMVectorLerp(zero, *pPlayer->getPosition(), t);
