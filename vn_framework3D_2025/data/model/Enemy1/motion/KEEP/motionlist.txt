@@ -1,0 +1,10 @@
+HumanF@Attack1H01_R.mot
+HumanF@Attack2H01.mot
+HumanF@AttackPolearm01.mot
+HumanF@AttackShield01.mot
+HumanF@MagicAttackCall1H01_L.mot
+HumanF@MagicAttackDirect1H01_L.mot
+HumanF@MagicAttackDirect1H01_R.mot
+HumanF@MagicAttackDirect2H01.mot
+HumanF@MagicAttackOmni01.mot
+HumanF@ThrowGrenade01_L.mot
