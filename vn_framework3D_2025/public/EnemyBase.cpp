@@ -21,7 +21,7 @@ EnemyBase::~EnemyBase()
 void EnemyBase::TimeUpdate(){
     
     // デバッグ加速
-    if (vnKeyboard::on(DIK_P)) Time += 1.0f;
+    //if (vnKeyboard::on(DIK_P)) Time += 1.0f;
 
 
     Time += 1.0f / 60.0f;

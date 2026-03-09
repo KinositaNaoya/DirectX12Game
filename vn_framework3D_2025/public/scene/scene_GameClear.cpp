@@ -75,6 +75,7 @@ bool SceneGameClear::initialize()
 
 void SceneGameClear::terminate()
 {
+    ShowCursor(true);
 
     delete(ClearBGM);
     delete(NoiseSE);

@@ -39,6 +39,15 @@ bool SceneTitle::initialize()
 
     addVel = 0.0f;
     Manager = new UI_Manager();
+    
+    //セーブファイル初期化
+    std::ofstream file("data/save/SavePhase.txt");
+
+    if (!file.is_open()) return false;
+
+    file << 0;
+    file.close();
+
     return true;
 }
 

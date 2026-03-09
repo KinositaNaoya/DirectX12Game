@@ -29,7 +29,7 @@ BoseEnemy1::BoseEnemy1(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,
     Phase1_BGM = new vnSound(L"data/sound/BGM/o‚Ì‰J‚ÆÉ‰Œ.wav");
     pPhase1_sky = new vnModel(L"data/model/", L"skydome.vnm");
     pPhase1_sky->setLighting(false);
-    pPhase1_sky->setScale(2.0f, 2.0f, 2.0f);
+    pPhase1_sky->setScale(5.0f, 5.0f, 5.0f);
     vnMainFrame::getSceneInstance()->registerObject(pPhase1_sky);
 
 
