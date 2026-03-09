@@ -8,7 +8,7 @@
 #include "../../framework/vn_environment.h"
 
 //起動時のシーン
-eSceneTable initialScene = eSceneTable::Boot;
+eSceneTable initialScene = eSceneTable::TITLE;
 //現在のシーン
 eSceneTable currentScene = (eSceneTable)-1;
 //切り替え予約のシーン

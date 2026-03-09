@@ -533,46 +533,71 @@ bool BoseEnemy1::FallLoad(FloorCube* floor[])
 
         // 床落下処理
     case STATE_EXE:
-    {
-        mWaveTimer += 1.0f;  // フレームカウント
+        {
+            mWaveTimer += 1.0f;
 
-        int bossX = mSelected % 8;
-        int bossY = mSelected / 8;
+            int bossX = mSelected % 8;
+            int bossY = mSelected / 8;
 
-        reached = true;
+            reached = true;
 
-        for (int i = 0; i < 8; i++) {
-            int index;
+            for (int i = 0; i < 8; i++) {
 
-            if (bossY == 0)          index = i * 8 + bossX;
-            else if (bossY == 7)     index = (7 - i) * 8 + bossX;
-            else if (bossX == 0)     index = bossY * 8 + i;
-            else                     index = bossY * 8 + (7 - i);
+                for (int offset = -1; offset <= 1; offset++) // ←3列
+                {
+                    int index = -1;
 
-            // ウェーブ
-            if (mWaveTimer > i * 5)   //5フレームずつ遅らせる
-            {
-                // 落下
-                floor[index]->addPositionY(-0.3f);
+                    if (bossY == 0)
+                    {
+                        int x = bossX + offset;
+                        if (x < 0 || x > 7) continue;
+                        index = i * 8 + x;
+                    }
+                    else if (bossY == 7)
+                    {
+                        int x = bossX + offset;
+                        if (x < 0 || x > 7) continue;
+                        index = (7 - i) * 8 + x;
+                    }
+                    else if (bossX == 0)
+                    {
+                        int y = bossY + offset;
+                        if (y < 0 || y > 7) continue;
+                        index = y * 8 + i;
+                    }
+                    else
+                    {
+                        int y = bossY + offset;
+                        if (y < 0 || y > 7) continue;
+                        index = y * 8 + (7 - i);
+                    }
 
-                // Y軸-30以下まで落ちたかどうか
-                if (floor[index]->getPositionY() > -30.0f) {
-                    // 落ちてない
-                    reached = false;
-                }
-                else {
-                    // 落ちた
-                    floor[index]->setPositionY(-100.0f);
+                    if (mWaveTimer > i * 5)
+                    {
+                        floor[index]->addPositionY(-0.3f);
+
+                        if (floor[index]->getPositionY() > -30.0f)
+                        {
+                            reached = false;
+                        }
+                        else
+                        {
+                            floor[index]->setPositionY(-100.0f);
+                        }
+                    }
                 }
             }
-        }
 
-        if (reached) {
-            mState = STATE_SELECT;
-            return true;
+            if (reached)
+            {
+                for (int i = 0; i < 64; i++){
+                    floor[i]->Init();
+                }
+                mState = STATE_SELECT;
+                return true;
+            }
         }
-    }
-        break;
+    break;
     }
     return false;
 }
