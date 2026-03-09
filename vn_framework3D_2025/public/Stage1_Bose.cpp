@@ -363,7 +363,7 @@ void BoseEnemy1::PhaseChange_exe(FloorCube* floor[])
     if (floor == nullptr)return;
 
     if (DoOnce) {
-        setGimmickState(STATE_INIT); //ギミックの状態遷移をreset
+        setGimmickState(STATE_SELECT); //ギミックの状態遷移をreset
         isGimmick = true;
         setMotionRate(0.5f);
         setMotionLoop(false);
@@ -479,15 +479,16 @@ bool BoseEnemy1::FallLoad(FloorCube* floor[])
     int edgeCount = sizeof(edgeIndex) / sizeof(int);
     static int mSelected = 0;
     static float mWaveTimer = 0.0f;
-
-    static int bossX;
-    static int bossY;
     static bool reached = true;//床が下まで到達したかどうか
 
     switch (mState)
     {
        // ランダム抽選
     case STATE_SELECT:
+
+        reached = true;
+        mWaveTimer = 0.0f;
+
         mSelected = edgeIndex[rand() % edgeCount];
 
         CurrentPos = *this->getPosition();
@@ -532,15 +533,15 @@ bool BoseEnemy1::FallLoad(FloorCube* floor[])
 
         // 床落下処理
     case STATE_EXE:
-
+    {
         mWaveTimer += 1.0f;  // フレームカウント
 
-        bossX = mSelected % 8;
-        bossY = mSelected / 8;
+        int bossX = mSelected % 8;
+        int bossY = mSelected / 8;
 
         reached = true;
 
-        for (int i = 0; i < 8; i++){
+        for (int i = 0; i < 8; i++) {
             int index;
 
             if (bossY == 0)          index = i * 8 + bossX;
@@ -555,7 +556,7 @@ bool BoseEnemy1::FallLoad(FloorCube* floor[])
                 floor[index]->addPositionY(-0.3f);
 
                 // Y軸-30以下まで落ちたかどうか
-                if (floor[index]->getPositionY() > -30.0f){
+                if (floor[index]->getPositionY() > -30.0f) {
                     // 落ちてない
                     reached = false;
                 }
@@ -566,28 +567,12 @@ bool BoseEnemy1::FallLoad(FloorCube* floor[])
             }
         }
 
-        if (reached)mState = STATE_INIT;
-
+        if (reached) {
+            mState = STATE_SELECT;
+            return true;
+        }
+    }
         break;
-
-        // 初期化
-    case STATE_INIT:
-
-        mWaveTimer = 0.0f;
-        mSelected = 0;
-        bossX = 0;
-        bossY = 0;
-        reached = true;
-
-        CurrentPos = XMVectorZero();
-        TargetPos = XMVectorZero();
-        moveT = 0.0f;
-
-        setMotion(motion_idle);
-        setMotionLoop(true);
-        TimeReset();
-        mState = STATE_SELECT;
-        return true;
     }
     return false;
 }
@@ -595,7 +580,6 @@ bool BoseEnemy1::FallLoad(FloorCube* floor[])
 //東西南北のどれか半分を落とす攻撃
 bool BoseEnemy1::FallEWNS(FloorCube* floor[])
 {
-    static int mSelected = 0;
     static float mWaveTimer = 0.0f;
     static int EWNS = 0;
     static bool fallen[64] = { false };
@@ -607,6 +591,8 @@ bool BoseEnemy1::FallEWNS(FloorCube* floor[])
         // ランダム抽選
     case STATE_SELECT:
         
+        mWaveTimer = 0.0f;
+        reached = true;
 
         EWNS = rand() % 4;
         if (EWNS == randNum)EWNS = rand() % 4;
@@ -724,21 +710,6 @@ bool BoseEnemy1::FallEWNS(FloorCube* floor[])
             return true;
         }
 
-        break;
-    case STATE_INIT:
-        //リセット
-        mSelected = 0;
-        EWNS = 0;
-        reached = true;
-        for (int i = 0; i < 64; i++) fallen[i] = false;
-        mWaveTimer = 0.0f;
-
-        CurrentPos = XMVectorZero();
-        TargetPos = XMVectorZero();
-        moveT = 0.0f;
-
-        TimeReset();
-        mState = STATE_SELECT;
         break;
     }
     return false;
@@ -882,24 +853,6 @@ bool BoseEnemy1::FallSide(FloorCube* floor[])
             mState = STATE_SELECT;
             return true;
         }
-
-        
-
-
-        break;
-    case STATE_INIT:
-        //リセット
-        
-        reached = true;
-
-        CurrentPos = XMVectorZero();
-        TargetPos = XMVectorZero();
-        moveT = 0.0f;
-
-        setMotion(motion_idle);
-        setMotionLoop(true);
-        TimeReset();
-        mState = STATE_SELECT;
         break;
     }
     return false;
@@ -998,144 +951,123 @@ bool BoseEnemy1::FallRand(FloorCube* floor[])
 
         // モーション待ち
     case STATE_MOTION:
-
-    {
- 
-        stayTimer += 1.0f / 30.0f;
-
-        float t = stayTimer / 2.0f;
-        if (t > 1.0f) t = 1.0f;
-        
-        if (FallRed) {
-            // 徐々に赤へ変化
-            for (int i = 0; i < 32; ++i)
-            {
-                int index = randFloor[i];
-
-                float r = 1.0f;          // 赤最大
-                float g = 1.0f - t;      // 徐々に減少
-                float b = 1.0f - t;      // 徐々に減少
-
-                floor[index]->setDiffuse(r, g, b, 1.0f);
-            }
-        }
-        else
         {
-            // 徐々に緑へ変化
-            for (int i = 0; i < 32; ++i)
-            {
-                int index = randFloor[i];
+            stayTimer += 1.0f / 30.0f;
 
-                float r = 1.0f - t;          // 赤最大
-                float g = 1.0f;      // 徐々に減少
-                float b = 1.0f - t;      // 徐々に減少
-
-                floor[index]->setDiffuse(r, g, b, 1.0f);
-            }
-        }
-
-
-        if (stayTimer >= 2.0f)
-        {
-            setMotionLoop(false);
-            setMotion(motion_FallRand);
-            mState = STATE_EXE;
-        }
-    }
-
-        return false;
-
-
-        // 床落下処理
-    case STATE_EXE:
-    {
-        bool allReached = true;
-
-        for (int i = 0; i < 64; ++i)
-        {
-            // この床が「残す床」か判定
-            bool isSafe = false;
-
-            for (int j = 0; j < 32; ++j)
-            {
-                if (i == randFloor[j])
-                {
-                    isSafe = true;
-                    break;
-                }
-            }
-
-            // 残す床ならスキップ
-            if (FallRed) {
-                if (!isSafe) continue;
-            }
-            else {
-                if (isSafe) continue;
-            }
+            float t = stayTimer / 2.0f;
+            if (t > 1.0f) t = 1.0f;
             
+            if (FallRed) {
+                // 徐々に赤へ変化
+                for (int i = 0; i < 32; ++i)
+                {
+                    int index = randFloor[i];
 
-            // 落とす床のみ処理
-            floor[i]->addPositionY(-0.3f);
+                    float r = 1.0f;          // 赤最大
+                    float g = 1.0f - t;      // 徐々に減少
+                    float b = 1.0f - t;      // 徐々に減少
 
-            float y = floor[i]->getPositionY();
-
-            if (y > -30.0f)
-            {
-                allReached = false;
+                    floor[index]->setDiffuse(r, g, b, 1.0f);
+                }
             }
             else
             {
-                floor[i]->setPositionY(-30.0f);
-            }
-        }
-
-        // 落とす床が全て -30 到達でステート変更
-        if (allReached)
-        {
-            
-            mState = STATE_INIT;
-        }
-    }
-        return false;
-
-        //リセット
-    case STATE_INIT:
-    {
-        for (int i = 0; i < 64; ++i)
-        {
-            bool isSafe = false;
-
-            for (int j = 0; j < 32; ++j)
-            {
-                if (i == randFloor[j])
+                // 徐々に緑へ変化
+                for (int i = 0; i < 32; ++i)
                 {
-                    isSafe = true;
-                    break;
+                    int index = randFloor[i];
+
+                    float r = 1.0f - t;          // 赤最大
+                    float g = 1.0f;      // 徐々に減少
+                    float b = 1.0f - t;      // 徐々に減少
+
+                    floor[index]->setDiffuse(r, g, b, 1.0f);
                 }
             }
 
-            if (FallRed) {
-                if (isSafe) floor[i]->Init();
+
+            if (stayTimer >= 2.0f)
+            {
+                setMotionLoop(false);
+                setMotion(motion_FallRand);
+                mState = STATE_EXE;
             }
-            else {
-                if (!isSafe) floor[i]->Init();
-            }
-            
-            floor[i]->setDiffuse(0.0f, 1.0f, 1.0f, 1.0f);
         }
+    break;
 
-        CurrentPos = XMVectorZero();
-        TargetPos = XMVectorZero();
-        moveT = 0.0f;
+        // 床落下処理
+    case STATE_EXE:
+        {
+            bool allReached = true;
 
-        setMotion(motion_idle);
-        setMotionLoop(true);
-        TimeReset();
+            for (int i = 0; i < 64; ++i)
+            {
+                // この床が「残す床」か判定
+                bool isSafe = false;
 
+                for (int j = 0; j < 32; ++j)
+                {
+                    if (i == randFloor[j])
+                    {
+                        isSafe = true;
+                        break;
+                    }
+                }
 
-        mState = STATE_SELECT;
-        return true;
-    }
+                // 残す床ならスキップ
+                if (FallRed) {
+                    if (!isSafe) continue;
+                }
+                else {
+                    if (isSafe) continue;
+                }
+                
+
+                // 落とす床のみ処理
+                floor[i]->addPositionY(-0.3f);
+
+                float y = floor[i]->getPositionY();
+
+                if (y > -30.0f)
+                {
+                    allReached = false;
+                }
+                else
+                {
+                    floor[i]->setPositionY(-30.0f);
+                }
+            }
+
+            // 落とす床が全て -30 到達でステート変更
+            if (allReached)
+            {
+                for (int i = 0; i < 64; ++i)
+                {
+                    bool isSafe = false;
+
+                    for (int j = 0; j < 32; ++j)
+                    {
+                        if (i == randFloor[j])
+                        {
+                            isSafe = true;
+                            break;
+                        }
+                    }
+
+                    if (FallRed) {
+                        if (isSafe) floor[i]->Init();
+                    }
+                    else {
+                        if (!isSafe) floor[i]->Init();
+                    }
+                    floor[i]->setDiffuse(0.0f, 1.0f, 1.0f, 1.0f);
+                }
+                mState = STATE_SELECT;
+                return true;
+            }
+        }
+    break;
+
     }
     return false;
 }
@@ -1222,82 +1154,71 @@ bool BoseEnemy1::FallCross(FloorCube* floor[])
         mState = STATE_EXE;
         break;
     case BoseEnemy1::STATE_EXE:
-    {
-        bool allReached = true;
-
-        for (int i = 0; i < 64; ++i)
         {
-            // この床が「残す床」か判定
-            bool isSafe = true;
+            bool allReached = true;
 
-            for (int j = 0; j < 28; ++j)
+            for (int i = 0; i < 64; ++i)
             {
-                if (i == Cross[j])
+                // この床が「残す床」か判定
+                bool isSafe = true;
+
+                for (int j = 0; j < 28; ++j)
                 {
-                    isSafe = false;
-                    break;
+                    if (i == Cross[j])
+                    {
+                        isSafe = false;
+                        break;
+                    }
+                }
+
+                if (isSafe) continue;
+                
+
+
+                // 落とす床のみ処理
+                floor[i]->addPositionY(-0.3f);
+
+                float y = floor[i]->getPositionY();
+
+                if (y > -30.0f)
+                {
+                    allReached = false;
+                }
+                else
+                {
+                    floor[i]->setPositionY(-30.0f);
                 }
             }
 
-            if (isSafe) continue;
-            
-
-
-            // 落とす床のみ処理
-            floor[i]->addPositionY(-0.3f);
-
-            float y = floor[i]->getPositionY();
-
-            if (y > -30.0f)
+            // 落とす床が全て -30 到達でステート変更
+            if (allReached)
             {
-                allReached = false;
-            }
-            else
-            {
-                floor[i]->setPositionY(-30.0f);
-            }
-        }
-
-        // 落とす床が全て -30 到達でステート変更
-        if (allReached)
-        {
-
-            mState = STATE_INIT;
-
-        }
-    }
-    return false;
-
-        break;
-    case BoseEnemy1::STATE_INIT:
-
-        for (int i = 0; i < 64; ++i)
-        {
-            // この床が「残す床」か判定
-            bool isSafe = true;
-
-            for (int j = 0; j < 28; ++j)
-            {
-                if (i == Cross[j])
+                for (int i = 0; i < 64; ++i)
                 {
-                    isSafe = false;
-                    break;
+                    // この床が「残す床」か判定
+                    bool isSafe = true;
+
+                    for (int j = 0; j < 28; ++j)
+                    {
+                        if (i == Cross[j])
+                        {
+                            isSafe = false;
+                            break;
+                        }
+                    }
+
+                    if (isSafe) continue;
+
+
+
+                    // 落とす床のみ処理
+                    floor[i]->Init();
+
                 }
+                mState = STATE_SELECT;
+                return true;
             }
-
-            if (isSafe) continue;
-
-
-
-            // 落とす床のみ処理
-            floor[i]->Init();
-
         }
-
-        setMotion(motion_idle);
-        mState = STATE_SELECT;
-
-        return true;
         break;
     }
 

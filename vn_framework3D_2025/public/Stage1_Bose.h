@@ -30,7 +30,6 @@ public:
 		STATE_MOVE,
 		STATE_MOTION,
 		STATE_EXE,
-		STATE_INIT,
 	};
 	Gimmick mState;
 	void setGimmickState(Gimmick state);
