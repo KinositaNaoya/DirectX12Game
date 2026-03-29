@@ -33,14 +33,15 @@ public:
 		FINAL,
 		GAMESET
 	};
-	PHASETABLE phase = STANDBY;
+	PHASETABLE ReservePhase = STANDBY;
+	PHASETABLE CurrentPhase = STANDBY;
 
 	EnemyBase(const WCHAR* folder, const WCHAR* file);
 	~EnemyBase();
 
 
 	Collider::Cube* getCubeCollider();
-	PHASETABLE getPhase() const { return this->phase; }
+	PHASETABLE getPhase() const { return this->CurrentPhase; }
 	float getScond();
 	float getMinutes();
 	int getEnemyTimer();

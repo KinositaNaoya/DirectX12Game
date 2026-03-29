@@ -10,7 +10,7 @@ bool SceneSTAGE_1::initialize()
     ShowCursor(false);
 
     //エネミーの生成処理
-    pEnemy = new BoseEnemy1(L"data/model/Enemy1/", L"HumanF_Model.bone");
+    pEnemy = new BoxMan(L"data/model/Enemy1/", L"HumanF_Model.bone");
     registerObject(pEnemy);
     for (int i = 0; i < pEnemy->getPartsNum(); i++) {
         registerObject(pEnemy->getParts(i));
@@ -24,7 +24,7 @@ bool SceneSTAGE_1::initialize()
         registerObject(pPlayer->getParts(i));
     }
 
-    //
+    //プレイヤーの陰
     pShadow = new vnModel(L"data/model/Player/", L"shadow.vnm");
     pShadow->setTransparent(true);
     pShadow->setPositionY(-2.4f);
@@ -114,9 +114,9 @@ void SceneSTAGE_1::execute()
 
     
     //敵が死んでいたらプレイヤーの操作を切る
-    if (!StageClear)pPlayer->execute();
+    if (!pEnemy->getIsDead())pPlayer->execute();
    
-    pEnemy->execute();
+    pEnemy->execute(pFloor);
     float dx = pPlayer->getPositionX() - pEnemy->getPositionX();
     float dz = pPlayer->getPositionZ() - pEnemy->getPositionZ();
     float angle = atan2f(dx, dz);
@@ -157,38 +157,14 @@ void SceneSTAGE_1::execute()
 
 
     pEnemy->TimeUpdate();
-    
-    //ボスの状態遷移
-    switch (pEnemy->getPhase()){
-    case BoseEnemy1::PHASETABLE::PHASE_1:
-        pEnemy->Phase_1_exe(pFloor);//エネミーのフェーズ処理
-        break;
 
-    case BoseEnemy1::PHASETABLE::PHASE_2:
-        pEnemy->Phase_2_exe(pFloor);//エネミーのフェーズ処理
-        break;
-
-    case BoseEnemy1::PHASETABLE::PHASE_3:
-        pEnemy->Phase_3_exe(pFloor);//エネミーのフェーズ処理
-        break;
-
-    case BoseEnemy1::PHASETABLE::PHASE_4:
-        pEnemy->Phase_4_exe(pFloor);//エネミーのフェーズ処理
-        break;
-
-    case BoseEnemy1::PHASETABLE::FINAL:
-        pEnemy->FINAL_exe(pFloor);//エネミーのフェーズ処理
-        break;
-
-    case BoseEnemy1::PHASETABLE::GAMESET:
-        StageClear = true;
-
+    if (pEnemy->getIsDead()) {
         if (pEnemy->GameSet_exe()) {
             switchScene(CLEAR);
         }
-        break;
     }
- 
+
+
     //死んだときの処理
     if (pPlayer->getIsDead()) {
         if (Manager->FadeIN(0.05f)) {
@@ -203,8 +179,6 @@ void SceneSTAGE_1::render()
 {
     vnScene::render();
     
-
-
     //フェイドアウト処理
     if (!pPlayer->getIsDead()) {
         Manager->FadeOUT(0.005f);
@@ -246,6 +220,4 @@ void SceneSTAGE_1::render()
         vnFont::print(10.0f, line++ * intervalY, L"EnemyZ         :%f", pEnemy->getParts(0)->getPositionZ());
         
     }
-
-    
 }

@@ -3,13 +3,13 @@
 
 
 
-class BoseEnemy1 : public EnemyBase
+class BoxMan : public EnemyBase
 {
 public:
 	
 
-	BoseEnemy1(const WCHAR* folder, const WCHAR* file);
-	~BoseEnemy1();
+	BoxMan(const WCHAR* folder, const WCHAR* file);
+	~BoxMan();
 
 	virtual void execute();
 

@@ -1,5 +1,5 @@
-#include "../framework.h"
-#include "../framework/vn_environment.h"
+#include "../../framework.h"
+#include "../../framework/vn_environment.h"
 
 EnemyBase::EnemyBase(const WCHAR* folder, const WCHAR* file):vnCharacter(folder, file)
 {
@@ -21,7 +21,7 @@ EnemyBase::~EnemyBase()
 void EnemyBase::TimeUpdate(){
     
     // デバッグ加速
-    //if (vnKeyboard::on(DIK_P)) Time += 1.0f;
+    if (vnKeyboard::on(DIK_P)) Time += 1.0f;
 
 
     Time += 1.0f / 60.0f;
@@ -43,13 +43,14 @@ void EnemyBase::TimeUpdate(){
     // 1秒経過まではStandby
     if (elapsedTime == 0)
     {
-        phase = STANDBY;
+        CurrentPhase = STANDBY;
         return;
     }
 
     UpdatePhase();
 }
 
+//フェーズをスキップする関数
 void EnemyBase::setSkipPhase(PHASETABLE Phase)
 {
     switch (Phase)
@@ -61,16 +62,16 @@ void EnemyBase::setSkipPhase(PHASETABLE Phase)
         elapsedTime = 0;
         break;
     case EnemyBase::PHASE_2:
-        elapsedTime = 55.0f;
+        elapsedTime = 60.0f;
         break;
     case EnemyBase::PHASE_3:
-        elapsedTime = 115.0f;
+        elapsedTime = 120.0f;
         break;
     case EnemyBase::PHASE_4:
-        elapsedTime = 175.0f;
+        elapsedTime = 180.0f;
         break;
     case EnemyBase::FINAL:
-        elapsedTime = 235.0f;
+        elapsedTime = 240.0f;
         break;
     case EnemyBase::GAMESET:
         elapsedTime = 300.0f;
@@ -78,6 +79,7 @@ void EnemyBase::setSkipPhase(PHASETABLE Phase)
     }
 }
 
+//フェーズレベルをセーブ
 void EnemyBase::SaveLevel()
 {
 
@@ -85,10 +87,11 @@ void EnemyBase::SaveLevel()
 
     if (!file.is_open()) return;
 
-    file << (int)phase;
+    file << (int)CurrentPhase;
     file.close();
 }
 
+//フェーズレベルをロード
 void EnemyBase::LoadLevel()
 {
     
@@ -111,32 +114,32 @@ void EnemyBase::UpdatePhase()
 {
     if (elapsedTime < 1.0f)
     {
-        phase = STANDBY;
+        ReservePhase = STANDBY;
     }
     else if (elapsedTime < 60.0f)
     {
-        phase = PHASE_1;
+        ReservePhase = PHASE_1;
     }
     else if (elapsedTime < 120.0f)
     {
-        phase = PHASE_2;
+        ReservePhase = PHASE_2;
     }
     else if (elapsedTime < 180.0f)
     {
-        phase = PHASE_3;
+        ReservePhase = PHASE_3;
     }
     else if (elapsedTime < 240.0f)
     {
-        phase = PHASE_4;
+        ReservePhase = PHASE_4;
     }
     else if (elapsedTime < 300.0f)
     {
-        phase = FINAL;
+        ReservePhase = FINAL;
     }
     else
     {
         elapsedTime = 300.0f;
-        phase = GAMESET;
+        ReservePhase = GAMESET;
     }
 }
 

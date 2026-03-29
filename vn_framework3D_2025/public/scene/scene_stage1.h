@@ -9,7 +9,7 @@ private:
 	Player* pPlayer;
 	vnModel* pShadow;
 
-	BoseEnemy1* pEnemy;
+	BoxMan* pEnemy;
 
 	FloorCube* pFloor[Collid_Max_NUM];
 	AreaCube* StandbyArea;//‚±‚ÌƒGƒŠƒA“à‚É‚¢‚é‚Æ“G‚Ìs“®‚·‚×‚Ä‚ª~‚Ü‚é

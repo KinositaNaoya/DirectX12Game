@@ -28,6 +28,24 @@
     <Filter Include="shader">
       <UniqueIdentifier>{f2363705-c82a-4d9a-b643-425e4afadf76}</UniqueIdentifier>
     </Filter>
+    <Filter Include="public\Object">
+      <UniqueIdentifier>{3dc892ec-7226-49d8-979a-e0e2327d8ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\UI">
+      <UniqueIdentifier>{1b6a411c-36e3-462a-be65-23cd4a17b74f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\Enemy">
+      <UniqueIdentifier>{1ff5941b-d531-46de-af73-f4e004404d08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\Enemy\BoxMan">
+      <UniqueIdentifier>{1b0c66b3-f544-43d1-b210-9efdede73b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\Enemy\BoxMan\Task">
+      <UniqueIdentifier>{48678026-d712-4265-a113-4eae5003a18c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="public\Enemy\BoxMan\Phase">
+      <UniqueIdentifier>{08bdb4c4-e011-4717-b0ec-4592bd820531}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -144,12 +162,6 @@
     <ClInclude Include="framework\vn_motionData .h">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="public\EnemyBase.h">
-      <Filter>public</Filter>
-    </ClInclude>
-    <ClInclude Include="public\Stage1_Bose.h">
-      <Filter>public</Filter>
-    </ClInclude>
     <ClInclude Include="public\UI_Manager.h">
       <Filter>public</Filter>
     </ClInclude>
@@ -158,6 +170,54 @@
     </ClInclude>
     <ClInclude Include="public\scene\scene_Select.h">
       <Filter>public\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Object\test.h">
+      <Filter>public\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\EnemyBase.h">
+      <Filter>public\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\BoxMan.h">
+      <Filter>public\Enemy\BoxMan</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\IBossPhase.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase1.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Task\TFallLoad.h">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Task\TFallCross.h">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Task\TFallEWNS.h">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Task\TFallRand.h">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Task\TFallSide.h">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase2.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase0.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase3.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase4.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase5.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Task\TPhaseCange.h">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,12 +317,6 @@
     <ClCompile Include="framework\vn_character.cpp">
       <Filter>framework</Filter>
     </ClCompile>
-    <ClCompile Include="public\EnemyBase.cpp">
-      <Filter>public</Filter>
-    </ClCompile>
-    <ClCompile Include="public\Stage1_Bose.cpp">
-      <Filter>public</Filter>
-    </ClCompile>
     <ClCompile Include="public\UI_Manager.cpp">
       <Filter>public</Filter>
     </ClCompile>
@@ -271,6 +325,54 @@
     </ClCompile>
     <ClCompile Include="public\scene\scene_Select.cpp">
       <Filter>public\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Object\test.cpp">
+      <Filter>public\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\EnemyBase.cpp">
+      <Filter>public\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\BoxMan.cpp">
+      <Filter>public\Enemy\BoxMan</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\IBossPhase.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase1.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Task\TFallLoad.cpp">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Task\TFallCross.cpp">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Task\TFallEWNS.cpp">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Task\TFallRand.cpp">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Task\TFallSide.cpp">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase2.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase0.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase3.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase4.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase5.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Task\TPhaseCange.cpp">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
