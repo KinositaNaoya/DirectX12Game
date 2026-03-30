@@ -7,8 +7,6 @@ Phase0::Phase0()
     pPhase_skyModel->setLighting(false);
     pPhase_skyModel->setScale(5.0f, 5.0f, 5.0f);
     vnMainFrame::getSceneInstance()->registerObject(pPhase_skyModel);
-
-    Randnum = 0;
 }
 
 Phase0::~Phase0()
@@ -18,7 +16,7 @@ Phase0::~Phase0()
 
 void Phase0::execute(BoxMan* boss, FloorCube* floor[])
 {
-    if (floor == nullptr)return;
+    if (floor == nullptr || boss == nullptr)return;
 
     //モーション的なの
     t += 0.05f;  // スピード調整
@@ -26,5 +24,4 @@ void Phase0::execute(BoxMan* boss, FloorCube* floor[])
     boss->setPositionY(y - 1.5f);
     boss->setMotion(boss->motion_idle);
     pPhase_skyModel->addRotationY(0.0004f);
-
 }

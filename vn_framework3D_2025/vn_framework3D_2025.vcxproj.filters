@@ -219,6 +219,12 @@
     <ClInclude Include="public\Enemy\BoxMan\Task\TPhaseCange.h">
       <Filter>public\Enemy\BoxMan\Task</Filter>
     </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase6.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="public\UI\UIbutton.h">
+      <Filter>public\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vn_framework3D_2025.cpp">
@@ -373,6 +379,12 @@
     </ClCompile>
     <ClCompile Include="public\Enemy\BoxMan\Task\TPhaseCange.cpp">
       <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase6.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="public\UI\UIbutton.cpp">
+      <Filter>public\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

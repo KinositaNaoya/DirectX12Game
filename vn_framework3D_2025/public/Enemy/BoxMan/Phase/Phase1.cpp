@@ -9,8 +9,6 @@ Phase1::Phase1()
     vnMainFrame::getSceneInstance()->registerObject(pPhase_skyModel);
 
     PhaseBGM = new vnSound(L"data/sound/BGM/o‚Ì‰J‚ÆÉ‰Œ.wav");
-    isGimmick = true;
-    Randnum = 0;
 }
 
 Phase1::~Phase1()
@@ -21,7 +19,7 @@ Phase1::~Phase1()
 
 void Phase1::execute(BoxMan* boss, FloorCube* floor[])
 {
-    if (floor == nullptr)return;
+    if (floor == nullptr || boss == nullptr)return;
 
     if (!PhaseBGM->isPlaying()) {
         PhaseBGM->play(true);

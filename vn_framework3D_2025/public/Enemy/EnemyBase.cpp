@@ -8,6 +8,7 @@ EnemyBase::EnemyBase(const WCHAR* folder, const WCHAR* file):vnCharacter(folder,
     Time = 0.0f;
     elapsedTime = 0.0f;
     Second = 0.0f;
+    CurrentPhase = STANDBY;
     if (vnMainFrame::getGameLevel() == true) {
         LoadLevel();
     }
@@ -21,7 +22,7 @@ EnemyBase::~EnemyBase()
 void EnemyBase::TimeUpdate(){
     
     // デバッグ加速
-    if (vnKeyboard::on(DIK_P)) Time += 1.0f;
+    //if (vnKeyboard::on(DIK_P)) Time += 1.0f;
 
 
     Time += 1.0f / 60.0f;
@@ -110,6 +111,7 @@ void EnemyBase::LoadLevel()
 
 }
 
+//エネミー時間に応じてフェーズを更新
 void EnemyBase::UpdatePhase()
 {
     if (elapsedTime < 1.0f)
@@ -143,27 +145,31 @@ void EnemyBase::UpdatePhase()
     }
 }
 
+//秒を取得
 float EnemyBase::getScond()
 {
     return Second;
 }
 
+//分を取得
 float EnemyBase::getMinutes()
 {
     return Minutes;
 }
 
+//総秒数を取得
 int EnemyBase::getEnemyTimer()
 {
     return elapsedTime;
 }
 
+//コライダーの取得
 Collider::Cube* EnemyBase::getCubeCollider()
 {
     return &collide;
 }
 
-//フェーズの時間を0～1で返す
+//フェーズの時間(60秒)を0～1で返す
 float EnemyBase::getEnemyPhaseRate(){
     float phaseTime = fmod(elapsedTime, phaseLength);
 

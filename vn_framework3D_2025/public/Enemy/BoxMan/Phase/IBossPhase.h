@@ -7,12 +7,13 @@
 #include "../Task/TFallRand.h"
 #include "../Task/TFallSide.h"
 
+
 //フェーズ用インターフェース
 class IBossPhase
 {
 public:
-	bool isGimmick;
-	int Randnum;
+	bool isGimmick;//ギミック完了か否か
+	int Randnum;	//ランダム用
 	IBossGimmick* currentGimmick;
 	vnSound* PhaseBGM;
 	vnModel* pPhase_skyModel;

@@ -27,6 +27,7 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
         for (int i = 0; i < 64; i++) {
             floor[i]->Init();
         }
+        boss->TimeReset();
         boss->setMotionRate(0.5f);
         boss->setMotionLoop(false);
         boss->setMotion(boss->motion_Change);

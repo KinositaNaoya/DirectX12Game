@@ -161,6 +161,7 @@
     <ClInclude Include="public\Enemy\BoxMan\Phase\Phase4.h" />
     <ClInclude Include="public\Enemy\BoxMan\Phase\Phase5.h" />
     <ClInclude Include="public\Enemy\BoxMan\Phase\Phase0.h" />
+    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase6.h" />
     <ClInclude Include="public\Enemy\BoxMan\Task\TFallCross.h" />
     <ClInclude Include="public\Enemy\BoxMan\Task\TFallEWNS.h" />
     <ClInclude Include="public\Enemy\BoxMan\Task\TFallLoad.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="public\scene\scene_table.h" />
     <ClInclude Include="public\scene\scene_Title.h" />
     <ClInclude Include="public\scene\vn_scene.h" />
+    <ClInclude Include="public\UI\UIbutton.h" />
     <ClInclude Include="public\UI_Manager.h" />
     <ClInclude Include="public\vn_billboard.h" />
     <ClInclude Include="public\FieldObject.h" />
@@ -216,6 +218,7 @@
     <ClCompile Include="public\Enemy\BoxMan\Phase\Phase4.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Phase\Phase5.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Phase\Phase0.cpp" />
+    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase6.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Task\TFallCross.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Task\TFallEWNS.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Task\TFallLoad.cpp" />
@@ -234,6 +237,7 @@
     <ClCompile Include="public\scene\scene_table.cpp" />
     <ClCompile Include="public\scene\scene_Title.cpp" />
     <ClCompile Include="public\scene\vn_scene.cpp" />
+    <ClCompile Include="public\UI\UIbutton.cpp" />
     <ClCompile Include="public\UI_Manager.cpp" />
     <ClCompile Include="public\vn_billboard.cpp" />
     <ClCompile Include="public\FieldObject.cpp" />

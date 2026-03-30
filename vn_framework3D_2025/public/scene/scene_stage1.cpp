@@ -159,9 +159,7 @@ void SceneSTAGE_1::execute()
     pEnemy->TimeUpdate();
 
     if (pEnemy->getIsDead()) {
-        if (pEnemy->GameSet_exe()) {
-            switchScene(CLEAR);
-        }
+        switchScene(CLEAR);
     }
 
 

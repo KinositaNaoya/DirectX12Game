@@ -101,6 +101,9 @@ using namespace DirectX;
 #include "vn_character.h"
 
 #include "../public/vn_sprite.h"
+#include "../public/UI/UIbutton.h"
+
+
 #include "../public/vn_effect.h"
 #include "../public/Collider.h"
 #include "../public/Player.h"
@@ -117,6 +120,7 @@ using namespace DirectX;
 #include "../public/Enemy/BoxMan/Phase/Phase3.h"
 #include "../public/Enemy/BoxMan/Phase/Phase4.h"
 #include "../public/Enemy/BoxMan/Phase/Phase5.h"
+#include "../public/Enemy/BoxMan/Phase/Phase6.h"
 
 
 #include "../public/scene/vn_scene.h"

@@ -11,8 +11,6 @@ Phase2::Phase2()
     vnMainFrame::getSceneInstance()->registerObject(pPhase_skyModel);
 
     PhaseBGM = new vnSound(L"data/sound/BGM/Egoist_2.wav");
-    isGimmick = true;
-    Randnum = 0;
 }
 
 Phase2::~Phase2()
@@ -23,7 +21,7 @@ Phase2::~Phase2()
 
 void Phase2::execute(BoxMan* boss, FloorCube* floor[])
 {
-    if (floor == nullptr)return;
+    if (floor == nullptr || boss == nullptr)return;
 
     pPhase_skyModel->addRotationY(-0.002f);
     if (!PhaseBGM->isPlaying()) {

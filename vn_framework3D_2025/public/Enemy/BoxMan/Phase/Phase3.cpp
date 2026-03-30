@@ -11,8 +11,6 @@ Phase3::Phase3()
     vnMainFrame::getSceneInstance()->registerObject(pPhase_skyModel);
 
     PhaseBGM = new vnSound(L"data/sound/BGM/Zero_Time_Outage.wav");
-    isGimmick = true;
-    Randnum = 0;
 }
 
 Phase3::~Phase3()
@@ -23,7 +21,7 @@ Phase3::~Phase3()
 
 void Phase3::execute(BoxMan* boss, FloorCube* floor[])
 {
-    if (floor == nullptr)return;
+    if (floor == nullptr || boss == nullptr)return;
 
     pPhase_skyModel->addRotationY(-0.0002f);
     if (!PhaseBGM->isPlaying()) {

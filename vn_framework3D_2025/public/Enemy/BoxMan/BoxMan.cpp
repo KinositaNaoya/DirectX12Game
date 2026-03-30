@@ -12,8 +12,6 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
     DoOnce = true;
     isDead = false;
 
-    
-    skyChangeFlag = false;
 
 
 
@@ -26,14 +24,7 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
     GcangePHASE = new PhaseCange();
 
 
-    //===ステージチェンジ用変数===
-    CurrentPos = XMVectorZero();
-    TargetPos = XMVectorZero();
-    moveT = 0.0f;
     
-    Randnum = 0;
-    isGimmick = true;
-
     
 
 
@@ -47,17 +38,14 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
     //===ギミック用モーション===
     motion_FallLoad =  loadMotionFile(L"data/model/Enemy1/motion/FallLoad.mot");
     motion_FallEWNS =  loadMotionFile(L"data/model/Enemy1/motion/FallEWNS.mot");
-
     motion_FallGrand = loadMotionFile(L"data/model/Enemy1/motion/GrandFall.mot");
-
     motion_FallRand_cast = loadMotionFile(L"data/model/Enemy1/motion/RandFall_Cast.mot");
     motion_FallRand = loadMotionFile(L"data/model/Enemy1/motion/RandFall.mot");
-
     motion_FallCross = loadMotionFile(L"data/model/Enemy1/motion/FallCross.mot");
-
     setMotion(motion_idle);
     
-    currentPhase = nullptr;
+    currentPhase = new Phase0();
+    currentGimmick = nullptr;
 }
 
 BoxMan::~BoxMan()
@@ -96,8 +84,7 @@ void BoxMan::execute(FloorCube* floor[])
         case EnemyBase::PHASE_3:    currentPhase = new Phase3();            break;
         case EnemyBase::PHASE_4:    currentPhase = new Phase4();            break;
         case EnemyBase::FINAL:      currentPhase = new Phase5();            break;
-        case EnemyBase::GAMESET:            isDead = true;
-            break;
+        case EnemyBase::GAMESET:    currentPhase = new Phase6();            break;
         }
     }
 
@@ -143,6 +130,11 @@ bool BoxMan::GameSet_exe()
 bool BoxMan::getIsDead()
 {
     return isDead;
+}
+
+void BoxMan::setIsDead(bool b)
+{
+    isDead = b;
 }
 
 

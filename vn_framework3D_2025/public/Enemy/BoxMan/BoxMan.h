@@ -2,8 +2,6 @@
 
 class IBossPhase;
 
-
-
 //ギミック用インターフェース
 class IBossGimmick
 {
@@ -84,31 +82,21 @@ public:
 	IBossPhase* currentPhase;
 
 	bool getIsDead();
+	void setIsDead(bool b);
 
 private:
 
 	bool isDead;
 
 	
-	
-
-	//ギミック制御用
-	int Randnum = 0;
-	bool isGimmick = true;
-
-	// STATE_MOVE用変数
-	XMVECTOR CurrentPos;
-	XMVECTOR TargetPos;
-	float moveT;//lerp用
 
 
 
 
-
-	float t = 0.0f;
+	//float t = 0.0f;
 
 	
-	bool skyChangeFlag;
+	//bool skyChangeFlag;
 
 	
 	

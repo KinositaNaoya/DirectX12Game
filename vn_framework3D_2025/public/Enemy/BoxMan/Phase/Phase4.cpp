@@ -11,8 +11,6 @@ Phase4::Phase4()
     vnMainFrame::getSceneInstance()->registerObject(pPhase_skyModel);
 
     PhaseBGM = new vnSound(L"data/sound/BGM/Cyber_Hounds.wav");
-    isGimmick = true;
-    Randnum = 0;
 }
 
 Phase4::~Phase4()
@@ -23,7 +21,7 @@ Phase4::~Phase4()
 
 void Phase4::execute(BoxMan* boss, FloorCube* floor[])
 {
-    if (floor == nullptr)return;
+    if (floor == nullptr || boss == nullptr)return;
 
     pPhase_skyModel->addRotationY(-0.0002f);
     if (!PhaseBGM->isPlaying()) {
