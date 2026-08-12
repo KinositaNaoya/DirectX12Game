@@ -1,5 +1,5 @@
-#include "../../framework.h"
-#include "../../framework/vn_environment.h"
+#include "../../../../framework.h"
+#include "../../../../framework/vn_environment.h"
 
 bool FallLoad::initialize()
 {
@@ -47,6 +47,8 @@ bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
         );
         boss->setMotion(boss->motion_Move);
 
+        boss->pMoveEffect->setEmit(true);
+
         moveT = 0.0f;
 
         mState = STATE_MOVE;
@@ -61,8 +63,11 @@ bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
         XMVECTOR pos = XMVectorLerp(CurrentPos, TargetPos, moveT);
         boss->setPosition(&pos);
 
+        
+
         if (moveT >= 1.0f)
         {
+            boss->pMoveEffect->setEmit(false);
             boss->setMotion(boss->motion_FallLoad);
             boss->setMotionLoop(false);
             mState = STATE_MOTION;

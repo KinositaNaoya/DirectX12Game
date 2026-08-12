@@ -9,6 +9,17 @@ bool SceneSTAGE_1::initialize()
 
     ShowCursor(false);
 
+
+    vnEmitter::stEmitterDesc aaa;
+    swprintf_s(aaa.Texture, L"%s", L"data/image/particle/particle001.png");
+
+    pEmitter = new vnEmitter(&aaa);
+
+    registerObject(pEmitter);
+
+
+
+
     //エネミーの生成処理
     pEnemy = new BoxMan(L"data/model/Enemy1/", L"HumanF_Model.bone");
     registerObject(pEnemy);
@@ -82,6 +93,8 @@ void SceneSTAGE_1::terminate()
 {
     delete(Manager);
 
+	DeleteObject(pEmitter);
+
     //エネミー
     for (int i = 0; i < pEnemy->getPartsNum(); i++)
     {
@@ -108,6 +121,9 @@ void SceneSTAGE_1::terminate()
 
 void SceneSTAGE_1::execute()
 {
+
+    pEmitter->setPosition(pPlayer->getPosition());
+
     pShadow->setPositionX(pPlayer->getPositionX());
     pShadow->setPositionZ(pPlayer->getPositionZ());
 

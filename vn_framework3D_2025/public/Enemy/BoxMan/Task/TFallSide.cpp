@@ -1,6 +1,5 @@
-#include "../../framework.h"
-#include "../../framework/vn_environment.h"
-
+#include "../../../../framework.h"
+#include "../../../../framework/vn_environment.h"
 bool FallSide::initialize()
 {
     mState = STATE_SELECT;
@@ -30,6 +29,7 @@ bool FallSide::execute(BoxMan* boss, FloorCube* floor[])
         moveT = 0.0f;
 
         boss->setMotion(boss->motion_Move);
+        boss->pMoveEffect->setEmit(true);
 
 
         mState = STATE_MOVE;
@@ -43,8 +43,11 @@ bool FallSide::execute(BoxMan* boss, FloorCube* floor[])
         XMVECTOR pos = XMVectorLerp(CurrentPos, TargetPos, moveT);
         boss->setPosition(&pos);
 
+        
+
         if (moveT >= 1.0f)
         {
+            boss->pMoveEffect->setEmit(false);
             boss->setMotion(boss->motion_FallGrand);
             boss->setMotionLoop(false);
             mState = STATE_MOTION;

@@ -4,11 +4,16 @@
 //													2025/11/01	//
 //														Ichii	//
 //--------------------------------------------------------------//
+
 #include "../framework.h"
 #include "../framework/vn_environment.h"
 
 //パーティクルの最大値
-#define vnPARTICLE_MAX	(1024)
+#define vnPARTICLE_MAX	(1024)//1024
+
+
+
+
 
 vnEmitter::vnEmitter(stEmitterDesc * desc)
 {
@@ -203,7 +208,7 @@ vnEmitter::vnEmitter(stEmitterDesc * desc)
 	}
 
 	{//インデックスバッファ
-		const int inum = vnPARTICLE_MAX * 6;	//ここがconst int inum = 6;だったためidxが6以上にならずに描画されなかった
+		const int inum = vnPARTICLE_MAX * 6;
 		const UINT indexBufferSize = sizeof(WORD) * inum;
 
 		D3D12_HEAP_PROPERTIES heapprop = {};
@@ -283,7 +288,7 @@ vnEmitter::vnEmitter(stEmitterDesc * desc)
 
 	//パーティクルを放出する際の設定
 	Desc.LifeMin = desc->LifeMin;
-	Desc.LifeMax = desc->LifeMin;
+	Desc.LifeMax = desc->LifeMax;
 
 	Desc.ColorMin = desc->ColorMin;
 	Desc.ColorMax = desc->ColorMax;
@@ -292,19 +297,7 @@ vnEmitter::vnEmitter(stEmitterDesc * desc)
 	Desc.SizeMax = desc->SizeMax;
 
 	Desc.SpeedMin = desc->SpeedMin;
-	Desc.SpeedMax = desc->SpeedMin;
-
-	//Desc.LifeMin = 30.0f;
-	//Desc.LifeMax = 60.0f;
-
-	//Desc.ColorMin = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
-	//Desc.ColorMax = XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);
-
-	//Desc.SizeMin = 0.5f;
-	//Desc.SizeMax = 1.0f;
-
-	//Desc.SpeedMin = 0.1f;
-	//Desc.SpeedMax = 0.2f;
+	Desc.SpeedMax = desc->SpeedMax;
 }
 
 vnEmitter::~vnEmitter()
@@ -324,30 +317,46 @@ void vnEmitter::execute()
 	XMVECTOR world;
 	getWorldPosition(&world);
 
+	int EmittedParticleCount = 0;
+
 	//パーティカルの放出
 	for (int i = 0; i < vnPARTICLE_MAX && emit==true; i++) {
 
+		if (EmittedParticleCount >= OneFrameEmittedParticle)break;
+
 		if (pParticle[i].Life > 0.0f)continue;
 		//放出可能なパーティクルの初期設定
-		pParticle[i].Life = (float)(rand() % 30) + 30.0f;
+
+		//寿命の設定
+		pParticle[i].Life = Desc.LifeMin + (Desc.LifeMax - Desc.LifeMin) * getRandNum();
 		pParticle[i].StartLife = pParticle[i].Life;
+
+		//最初の位置の設定
 		pParticle[i].Pos = Position;
+
+		//速度の設定
 		pParticle[i].Vel = XMVectorSet(
-			(float)((rand() % 100) - 50) / 500.0f,
-			(float)((rand() % 100) - 50) / 500.0f,
-			(float)((rand() % 100) - 50) / 500.0f,
+			Desc.SpeedMin.m128_f32[0] + (Desc.SpeedMax.m128_f32[0] - Desc.SpeedMin.m128_f32[0]) * getRandNum(),
+			Desc.SpeedMin.m128_f32[1] + (Desc.SpeedMax.m128_f32[1] - Desc.SpeedMin.m128_f32[1]) * getRandNum(),
+			Desc.SpeedMin.m128_f32[2] + (Desc.SpeedMax.m128_f32[2] - Desc.SpeedMin.m128_f32[2]) * getRandNum(),
 			0.0f
 		);
+
 		pParticle[i].Vel *= 0.1f;
+
+		//色の設定
 		pParticle[i].Col = XMVectorSet(
-			(float)((rand() % 100)) / 100.0f,
-			(float)((rand() % 100)) / 100.0f,
-			(float)((rand() % 100)) / 100.0f,
-			1.0f
+			Desc.ColorMin.m128_f32[0] + (Desc.ColorMax.m128_f32[0] - Desc.ColorMin.m128_f32[0]) * getRandNum(),
+			Desc.ColorMin.m128_f32[1] + (Desc.ColorMax.m128_f32[1] - Desc.ColorMin.m128_f32[1]) * getRandNum(),
+			Desc.ColorMin.m128_f32[2] + (Desc.ColorMax.m128_f32[2] - Desc.ColorMin.m128_f32[2]) * getRandNum(),
+			Desc.ColorMin.m128_f32[3] + (Desc.ColorMax.m128_f32[3] - Desc.ColorMin.m128_f32[3]) * getRandNum()
 		);
-		//pParticle[i].Col = Desc.ColorMax;
-		pParticle[i].Size = 1.0f;
-		break;
+
+		//サイズの設定
+		pParticle[i].Size = Desc.SizeMin + (Desc.SizeMax - Desc.SizeMin) * getRandNum();
+		
+		EmittedParticleCount++;
+		//break;
 	}
 	//カメラのビューマトリクスを取得
 	XMMATRIX mBillboard = *vnCamera::getView();
@@ -439,6 +448,11 @@ void vnEmitter::setVertexPosition()
 {
 }
 
+float vnEmitter::getRandNum()
+{
+	return (float)rand() / (float)RAND_MAX;
+}
+
 void vnEmitter::render()
 {
 #if 1
@@ -482,4 +496,16 @@ void vnEmitter::setEmit(bool flag)
 bool vnEmitter::isEmit()
 {
 	return emit;
+}
+
+//1フレームのパーティクルの放出数を設定
+void vnEmitter::setOneFrameEmittedParticle(int num)
+{
+	//5以上には設定できないようにする(大量処理OKにしちゃうと怖いから)
+	if (num >= 5) {
+		OneFrameEmittedParticle = 5;
+	}
+	else{
+		OneFrameEmittedParticle = num;
+	}
 }

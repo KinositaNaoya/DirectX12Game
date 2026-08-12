@@ -3,6 +3,7 @@
 class EnemyBase : public vnCharacter
 {
 protected:
+
 	Collider::Cube collide;	//物理判定用コライダー
 
 private:

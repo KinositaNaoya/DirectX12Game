@@ -18,6 +18,8 @@ private:
 	bool Debug = false;	//デバッグを表示するかどうか
 	bool StageClear;	//ステージをクリアしたかどうか
 
+	vnEmitter* pEmitter;
+
 
 public:
 

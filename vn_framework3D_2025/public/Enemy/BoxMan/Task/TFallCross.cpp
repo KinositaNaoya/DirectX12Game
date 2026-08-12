@@ -1,5 +1,5 @@
-#include "../../framework.h"
-#include "../../framework/vn_environment.h"
+#include "../../../../framework.h"
+#include "../../../../framework/vn_environment.h"
 
 bool FallCross::initialize()
 {
@@ -38,6 +38,8 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
 
         boss->setMotion(boss->motion_Move);
 
+        boss->pMoveEffect->setEmit(true);
+
         mState = STATE_MOVE;
 
         break;
@@ -48,8 +50,11 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
         XMVECTOR pos = XMVectorLerp(CurrentPos, TargetPos, moveT);
         boss->setPosition(&pos);
 
+		
+
         if (moveT >= 1.0f)
         {
+            boss->pMoveEffect->setEmit(false);
             boss->setMotion(boss->motion_FallCross);
             boss->setMotionLoop(false);
             moveT = 0.0f;

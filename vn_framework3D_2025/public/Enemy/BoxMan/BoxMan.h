@@ -81,22 +81,19 @@ public:
 
 	IBossPhase* currentPhase;
 
+	vnEmitter* pMoveEffect;
+
 	bool getIsDead();
 	void setIsDead(bool b);
+
 
 private:
 
 	bool isDead;
 
-	
+	XMVECTOR BossBackPos = XMVectorSet(0.0f,0.0f,0.0f,0.0f);
 
 
-
-
-	//float t = 0.0f;
-
-	
-	//bool skyChangeFlag;
 
 	
 	

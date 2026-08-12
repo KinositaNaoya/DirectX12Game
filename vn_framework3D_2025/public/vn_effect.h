@@ -40,8 +40,8 @@ public:
 		float SizeMin = 0.5f;
 		float SizeMax = 1.0f;
 
-		float SpeedMin = 0.1f;
-		float SpeedMax = 0.2f;
+		XMVECTOR SpeedMin = XMVectorSet(-1.0f, -1.0f, -1.0f, 0.0f);
+		XMVECTOR SpeedMax = XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f);
 	};
 private:
 	//放出するかのフラグ
@@ -57,6 +57,10 @@ private:
 
 	//描画されるインデックス数
 	int IndexNum;
+
+	//1ﾌﾚｰﾑに生成できるパーティクルの上限数
+	int OneFrameEmittedParticle = 1;
+
 
 	//頂点データ
 	vnVertex3D* vtx;
@@ -87,6 +91,9 @@ private:
 	//頂点データへの各種情報の設定
 	virtual void setVertexPosition();
 
+	//particle処理の乱数用
+	float getRandNum();
+
 
 public:
 	vnEmitter(stEmitterDesc* desc);
@@ -99,5 +106,8 @@ public:
 	void setEmit(bool flag);
 
 	bool isEmit();
+
+	//1フレームのパーティクルの放出数を設定
+	void setOneFrameEmittedParticle(int num);
 
 };

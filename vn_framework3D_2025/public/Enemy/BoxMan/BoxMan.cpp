@@ -1,5 +1,5 @@
-#include "../../framework.h"
-#include "../../framework/vn_environment.h"
+#include "../../../framework.h"
+#include "../../../framework/vn_environment.h"
 
 BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
 {
@@ -13,20 +13,29 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
     isDead = false;
 
 
+    //===移動エフェクト===
+	vnEmitter::stEmitterDesc e_desc;//ｴﾌｪｸﾄﾊﾟﾗﾒｰﾀｰ
+	e_desc.SizeMax = 0.5f;
+	e_desc.SizeMin = 0.1f;
+    e_desc.ColorMax = XMVectorSet(0.1f, 0.8f, 0.9f, 1.0f);
+    e_desc.ColorMin = XMVectorSet(0.1f, 0.0f, 0.2f, 0.3f);
+	e_desc.SpeedMin = XMVectorSet(-0.5f, -0.1f, -0.5f, 0.0f);
+	e_desc.SpeedMax = XMVectorSet(0.5f, 0.1f, 0.5f, 0.0f);
+	pMoveEffect = new vnEmitter(&e_desc);
+    pMoveEffect->setEmit(false);
+    pMoveEffect->setOneFrameEmittedParticle(3);
+    vnMainFrame::getSceneInstance()->registerObject(pMoveEffect);
 
 
-    //ギミック
+    //炎のｴﾌｪｸﾄ->寿命に合わせて赤から黄色、サイズも変化
+
+    //===ギミック===
     GfallEWNS = new FallEWNS();
     GfallLOAD = new FallLoad();
     GfallCROSS = new FallCross();
     GfallRAND = new FallRand();
     GfallSIDE = new FallSide();
     GcangePHASE = new PhaseCange();
-
-
-    
-    
-
 
 
     //===共有モーション===
@@ -61,6 +70,7 @@ BoxMan::~BoxMan()
     deleteMotionFile(motion_FallRand_cast);
     deleteMotionFile(motion_FallRand);
     deleteMotionFile(motion_FallCross);
+    
 
     delete(GfallEWNS);
     delete(GfallLOAD);
@@ -68,10 +78,20 @@ BoxMan::~BoxMan()
     delete(GfallRAND);
     delete(GfallSIDE);
     delete(currentPhase);
+
+	vnMainFrame::getSceneInstance()->deleteObject(pMoveEffect);
 }
 
 void BoxMan::execute(FloorCube* floor[])
 {
+    pMoveEffect->execute();
+    
+    //ボスの少し後ろにエフェクトを追従
+    XMVECTOR forwardPos = XMVector3Normalize(*this->getPosition());
+    XMVECTOR tempPos = *getPosition() + -forwardPos * 0.5f;
+    pMoveEffect->setPosition(&tempPos);
+
+    //フェーズ更新処理
     if (CurrentPhase != ReservePhase)
     {
         delete(currentPhase);
@@ -93,7 +113,7 @@ void BoxMan::execute(FloorCube* floor[])
         currentPhase->execute(this, floor);//処理
     }
     
-    
+	
     vnCharacter::execute();
 }
 

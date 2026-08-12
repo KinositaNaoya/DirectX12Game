@@ -1,5 +1,5 @@
-#include "../../framework.h"
-#include "../../framework/vn_environment.h"
+#include "../../../../framework.h"
+#include "../../../../framework/vn_environment.h"
 
 bool PhaseCange::initialize()
 {
@@ -36,6 +36,8 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
         SkyChangeSE->play(true);
 
         boss->currentPhase->pPhase_skyModel->setPositionY(0.0f);
+        boss->pMoveEffect->setEmit(true);
+
         mState = STATE_MOVE;
         break;
 
@@ -49,7 +51,7 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
         //ƒXƒ‹[
     case STATE_MOTION:
         
-
+        boss->pMoveEffect->setEmit(false);
         mState = STATE_EXE;
         break;
 
