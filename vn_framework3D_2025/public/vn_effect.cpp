@@ -488,6 +488,11 @@ void vnEmitter::render()
 #endif
 }
 
+void vnEmitter::setDesc(stEmitterDesc* desc)
+{
+	Desc = *desc;
+}
+
 void vnEmitter::setEmit(bool flag)
 {
 	emit = flag;
@@ -499,13 +504,13 @@ bool vnEmitter::isEmit()
 }
 
 //1フレームのパーティクルの放出数を設定
-void vnEmitter::setOneFrameEmittedParticle(int num)
+void vnEmitter::setOneFrameEmittedParticle(int OneFrameParticleNUM)
 {
 	//5以上には設定できないようにする(大量処理OKにしちゃうと怖いから)
-	if (num >= 5) {
+	if (OneFrameParticleNUM >= 5) {
 		OneFrameEmittedParticle = 5;
 	}
 	else{
-		OneFrameEmittedParticle = num;
+		OneFrameEmittedParticle = OneFrameParticleNUM;
 	}
 }

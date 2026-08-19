@@ -103,11 +103,13 @@ public:
 
 	virtual void render();
 
+	void setDesc(stEmitterDesc* desc);
+
 	void setEmit(bool flag);
 
 	bool isEmit();
 
 	//1フレームのパーティクルの放出数を設定
-	void setOneFrameEmittedParticle(int num);
+	void setOneFrameEmittedParticle(int OneFrameParticleNUM);
 
 };

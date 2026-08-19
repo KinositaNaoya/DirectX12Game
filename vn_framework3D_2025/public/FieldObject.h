@@ -7,13 +7,23 @@ class FloorCube : public vnModel
 {	
 private:
 	float mShakeTime = 0.0f;//シェイク用
+	vnEmitter::stEmitterDesc EmitterDesc;
+	
 
 public:
 	XMVECTOR initVec;
 	Collider::Cube cube;
 
+	vnEmitter* pFloorEmitter = NULL;
+
 	FloorCube(const WCHAR* folder, const WCHAR* file);//コンスト
+	~FloorCube();//デスト
 	Collider::Cube* getCubeCollider();//渡す用
+
+	virtual void execute();
+
+	vnEmitter::stEmitterDesc* getEmitterDesc();
+	vnEmitter* getEmitter();
 
 	void Init();
 	void FloorShake(float speed = NULL);

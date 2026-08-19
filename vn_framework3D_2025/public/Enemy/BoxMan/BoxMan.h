@@ -16,6 +16,7 @@ public:
 	XMVECTOR CurrentPos;
 	XMVECTOR TargetPos;
 	float moveT;//lerp用
+	bool DoOnce;//一度だけ実行する処理用
 
 	enum Gimmick
 	{

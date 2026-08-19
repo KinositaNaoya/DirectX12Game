@@ -111,6 +111,9 @@ void BoxMan::execute(FloorCube* floor[])
     CurrentPhase = ReservePhase;
     if (currentPhase != nullptr) {
         currentPhase->execute(this, floor);//èàóù
+        for (int i = 0; i < 64; i++){ //FloorCubeÇÃêîâÒÇ∑
+			floor[i]->execute();
+        }
     }
     
 	
@@ -163,6 +166,7 @@ void BoxMan::setIsDead(bool b)
 
 IBossGimmick::IBossGimmick()
 {
+	DoOnce = true;
     initialize();
 }
 

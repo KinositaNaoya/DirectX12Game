@@ -12,8 +12,6 @@ bool FallEWNS::initialize()
 //東西南北のどれか半分を落とす攻撃
 bool FallEWNS::execute(BoxMan* boss, FloorCube* floor[])
 {
-    
-
     switch (mState)
     {
         // ランダム抽選
@@ -51,7 +49,7 @@ bool FallEWNS::execute(BoxMan* boss, FloorCube* floor[])
         XMVECTOR pos = XMVectorLerp(CurrentPos, TargetPos, moveT);
         boss->setPosition(&pos);
 
-        
+
 
         if (moveT >= 1.0f)
         {
@@ -65,8 +63,46 @@ bool FallEWNS::execute(BoxMan* boss, FloorCube* floor[])
 
         // モーション待ち
     case STATE_MOTION:
+
+        if (DoOnce) {
+            for (int i = 0; i < 64; i++){
+
+                int x = i % 8;
+                int y = i / 8;
+
+                bool shouldFall = false; //落としていいかどうかのﾌﾗｸﾞ
+
+                // 方角判定
+                if (EWNS == 0) // EAST（右半分）
+                {
+                    if (x >= 4) shouldFall = true;
+                }
+                else if (EWNS == 1) // WEST（左半分）
+                {
+                    if (x <= 3) shouldFall = true;
+                }
+                else if (EWNS == 2) // NORTH（上半分）
+                {
+                    if (y >= 4) shouldFall = true;
+                }
+                else if (EWNS == 3) // SOUTH（下半分）
+                {
+                    if (y <= 3) shouldFall = true;
+                }
+
+                if (!shouldFall) continue;
+                
+                floor[i]->getEmitterDesc()->LifeMax = 10.0f;
+                floor[i]->getEmitterDesc()->LifeMin = 10.0f;
+                floor[i]->getEmitter()->setEmit(true);
+            }
+			DoOnce = false;
+        }
+
+
         if (!boss->getMotionEnd())return false;
 
+        DoOnce = true;
         mState = STATE_EXE;
         break;
 
@@ -82,7 +118,7 @@ bool FallEWNS::execute(BoxMan* boss, FloorCube* floor[])
             int x = i % 8;
             int y = i / 8;
 
-            bool shouldFall = false;
+            bool shouldFall = false; //落としていいかどうかのﾌﾗｸﾞ
 
             // 方角判定
             if (EWNS == 0) // EAST（右半分）
@@ -103,6 +139,8 @@ bool FallEWNS::execute(BoxMan* boss, FloorCube* floor[])
             }
 
             if (!shouldFall) continue;
+            floor[i]->getEmitterDesc()->LifeMax = 30.0f;
+            floor[i]->getEmitterDesc()->LifeMin = 30.0f;
 
             //ウェーブ化（距離で遅延）
             float delay = 0.0f;
@@ -114,11 +152,14 @@ bool FallEWNS::execute(BoxMan* boss, FloorCube* floor[])
 
             if (mWaveTimer > delay)
             {
+                
+
                 floor[i]->addPositionY(-0.3f);
                 fallen[i] = true;
 
                 if (floor[i]->getPositionY() > -30.0f)
                 {
+                    floor[i]->getEmitter()->setEmit(false);
                     isReached = false;
                 }
             }

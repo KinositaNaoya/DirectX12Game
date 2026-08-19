@@ -6,6 +6,45 @@ FloorCube::FloorCube(const WCHAR* folder, const WCHAR* file) :vnModel(folder, fi
 {
 	mShakeTime = 0.0f;
 	cube.setOwner(this);
+
+	EmitterDesc.LifeMax = 30.0f;
+	EmitterDesc.LifeMin = 30.0f;
+	EmitterDesc.SizeMax = 0.5f;
+	EmitterDesc.SizeMin = 0.1f;
+	EmitterDesc.ColorMax = XMVectorSet(1.0f, 0.9f, 0.2f, 1.0f);
+	EmitterDesc.ColorMin = XMVectorSet(1.0f, 0.5f, 0.0f, 0.8f);
+
+	EmitterDesc.SpeedMin = XMVectorSet(-1.0f, 0.0f, -1.0f, 0.0f);
+	EmitterDesc.SpeedMax = XMVectorSet(1.0f, 5.0f, 1.0f, 0.0f);
+
+	pFloorEmitter = new vnEmitter(&EmitterDesc);
+	pFloorEmitter->setEmit(false);
+
+	vnMainFrame::getSceneInstance()->registerObject(pFloorEmitter);
+
+}
+
+FloorCube::~FloorCube()
+{
+	vnMainFrame::getSceneInstance()->deleteObject(pFloorEmitter);
+}
+
+void FloorCube::execute()
+{
+	pFloorEmitter->setDesc(&EmitterDesc);
+
+	pFloorEmitter->setPosition(this->getPosition());
+	pFloorEmitter->execute();
+}
+
+vnEmitter::stEmitterDesc* FloorCube::getEmitterDesc()
+{
+	return &EmitterDesc;
+}
+
+vnEmitter* FloorCube::getEmitter()
+{
+	return pFloorEmitter;
 }
 
 //æ“¾
@@ -22,6 +61,7 @@ void FloorCube::Init()
 	this->setAmbient(0.0f, 0.0f, 0.0f, 1.0f);
 	this->setSpecular(0.0f, 0.0f, 0.0f, 1.0f);
 	this->setRotation(0.0f, 0.0f, 0.0f);
+	this->getEmitter()->setEmit(true);
 }
 
 

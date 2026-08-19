@@ -23,7 +23,6 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
     
     
 
-
     switch (mState)
     {
     case BoxMan::STATE_SELECT:

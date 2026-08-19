@@ -32,6 +32,7 @@ bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
             floor[i]->Init();
         }
 
+		DoOnce = true;
         isReached = true;
         mWaveTimer = 0.0f;
 
@@ -77,9 +78,57 @@ bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
 
         // モーション待機
     case STATE_MOTION:
+    {
+        if (DoOnce) {
+            int bossX = mSelected % 8;
+            int bossY = mSelected / 8;
+
+            for (int i = 0; i < 8; i++) {
+
+                for (int offset = -1; offset <= 1; offset++)//幅三つ分
+                {
+                    int index = -1;
+
+                    if (bossY == 0)
+                    {
+                        int x = bossX + offset;
+                        if (x < 0 || x > 7) continue;
+                        index = i * 8 + x;
+                    }
+                    else if (bossY == 7)
+                    {
+                        int x = bossX + offset;
+                        if (x < 0 || x > 7) continue;
+                        index = (7 - i) * 8 + x;
+                    }
+                    else if (bossX == 0)
+                    {
+                        int y = bossY + offset;
+                        if (y < 0 || y > 7) continue;
+                        index = y * 8 + i;
+                    }
+                    else
+                    {
+                        int y = bossY + offset;
+                        if (y < 0 || y > 7) continue;
+                        index = y * 8 + (7 - i);
+                    }
+
+                    floor[index]->getEmitterDesc()->LifeMax = 10.0f;
+                    floor[index]->getEmitterDesc()->LifeMin = 10.0f;
+                    floor[index]->getEmitter()->setEmit(true);
+                }
+            }
+
+			DoOnce = false;
+        }
+
         if (!boss->getMotionEnd())return false;
 
+		DoOnce = true;
+
         mState = STATE_EXE;
+    }
         break;
 
         // 床落下処理
@@ -127,12 +176,15 @@ bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
                 {
                     floor[index]->addPositionY(-0.3f);
 
-                    if (floor[index]->getPositionY() > -30.0f)
-                    {
+                    floor[index]->getEmitterDesc()->LifeMax = 30.0f;
+                    floor[index]->getEmitterDesc()->LifeMin = 30.0f;
+                    
+
+                    if (floor[index]->getPositionY() > -30.0f){
                         isReached = false;
                     }
-                    else
-                    {
+                    else{
+                        floor[index]->getEmitter()->setEmit(false);
                         floor[index]->setPositionY(-100.0f);
                     }
                 }

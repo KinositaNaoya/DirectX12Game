@@ -19,13 +19,13 @@ PhaseCange::~PhaseCange()
 
 bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
 {
-
     switch (mState)
     {
         //‰Šú‰»
     case STATE_SELECT:
         for (int i = 0; i < 64; i++) {
             floor[i]->Init();
+			floor[i]->getEmitter()->setEmit(false);
         }
         boss->TimeReset();
         boss->setMotionRate(0.5f);
