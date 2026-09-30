@@ -6,6 +6,7 @@
 #include "../Task/TFallEWNS.h"
 #include "../Task/TFallRand.h"
 #include "../Task/TFallSide.h"
+#include "../Task/TCollapseRing.h"
 
 
 //フェーズ用インターフェース

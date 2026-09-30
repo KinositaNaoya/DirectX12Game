@@ -166,7 +166,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    int new_width = (rw.right - rw.left) - (rc.right - rc.left) + screen_width;
    int new_height = (rw.bottom - rw.top) - (rc.bottom - rc.top) + screen_height;
 
-   ::SetWindowPos(hWnd, nullptr, 0, 0, new_width, new_height, SWP_NOMOVE | SWP_NOZORDER);
+   ::SetWindowPos(hWnd, nullptr, -150, 150, new_width, new_height, SWP_NOMOVE | SWP_NOZORDER);
 
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);

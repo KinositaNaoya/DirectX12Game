@@ -152,6 +152,7 @@ void Player::execute()
 	//ジャンプの発動
 	if(air == false && vnKeyboard::trg(DIK_SPACE))
 	{
+		if (!vnMainFrame::getGameLevel())return;//Hardモードはジャンプ不可
 		air = true;	
 		Velocity += JumpForce;
 	}

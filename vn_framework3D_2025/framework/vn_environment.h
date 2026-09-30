@@ -110,6 +110,7 @@ using namespace DirectX;
 #include "../public/Enemy/EnemyBase.h"
 #include "../public/UI_Manager.h"
 #include "../public/FieldObject.h"
+#include "../public/Object/Impactactor.h"
 
 #include "../public/Enemy/BoxMan/BoxMan.h"
 

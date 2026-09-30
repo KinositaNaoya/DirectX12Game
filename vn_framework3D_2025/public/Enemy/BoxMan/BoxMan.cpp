@@ -27,6 +27,21 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
     vnMainFrame::getSceneInstance()->registerObject(pMoveEffect);
 
 
+	//===チャージエフェクト===
+    e_desc.ColorMax = XMVectorSet(0.8f, 0.05f, 0.05f, 1.0f);
+    e_desc.ColorMin = XMVectorSet(0.05f, 0.0f, 0.0f, 0.3f);
+    pChargeEffect = new vnEmitter(&e_desc);
+    pChargeEffect->setEmit(false);
+    pChargeEffect->setOneFrameEmittedParticle(3);
+	pChargeEffect->setEmitterReverse(true);
+	vnMainFrame::getSceneInstance()->registerObject(pChargeEffect);
+
+    //===ノックバック制御オブジェクト===
+	pMoveImpact = new ImpactActor();
+	vnMainFrame::getSceneInstance()->registerObject(pMoveImpact);
+
+
+
     //炎のｴﾌｪｸﾄ->寿命に合わせて赤から黄色、サイズも変化
 
     //===ギミック===
@@ -35,6 +50,8 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
     GfallCROSS = new FallCross();
     GfallRAND = new FallRand();
     GfallSIDE = new FallSide();
+	GfallRING = new FallRing();
+
     GcangePHASE = new PhaseCange();
 
 
@@ -77,14 +94,18 @@ BoxMan::~BoxMan()
     delete(GfallCROSS);
     delete(GfallRAND);
     delete(GfallSIDE);
+    delete(GfallRING);
     delete(currentPhase);
 
 	vnMainFrame::getSceneInstance()->deleteObject(pMoveEffect);
+	vnMainFrame::getSceneInstance()->deleteObject(pChargeEffect);
+	vnMainFrame::getSceneInstance()->deleteObject(pMoveImpact);
 }
 
 void BoxMan::execute(FloorCube* floor[])
 {
     pMoveEffect->execute();
+    pChargeEffect->execute();
     
     //ボスの少し後ろにエフェクトを追従
     XMVECTOR forwardPos = XMVector3Normalize(*this->getPosition());

@@ -28,7 +28,7 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
 			floor[i]->getEmitter()->setEmit(false);
         }
         boss->TimeReset();
-        boss->setMotionRate(0.5f);
+        boss->setMotionRate(1.0f);
         boss->setMotionLoop(false);
         boss->setMotion(boss->motion_Change);
         boss->setPositionX(0.0f);
@@ -36,7 +36,8 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
         SkyChangeSE->play(true);
 
         boss->currentPhase->pPhase_skyModel->setPositionY(0.0f);
-        boss->pMoveEffect->setEmit(true);
+        //boss->pMoveEffect->setEmit(true);
+        boss->pChargeEffect->setEmit(true);
 
         mState = STATE_MOVE;
         break;
@@ -44,14 +45,21 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
         //‰¹‚â‚Ý‘Ò‚¿
     case STATE_MOVE:
 
+
         if (SkyChangeSE->isPlaying())return false;
+        if (!boss->getMotionEnd())return false;
+
         mState = STATE_MOTION;
         break;
 
         //ƒXƒ‹[
     case STATE_MOTION:
         
-        boss->pMoveEffect->setEmit(false);
+        boss->pChargeEffect->setEmit(false);
+        //boss->pMoveEffect->setEmit(false);
+        boss->pMoveImpact->setPosition(boss->getPosition());
+        boss->pMoveImpact->KnockBackObject(boss->getPlayer_ptr());
+
         mState = STATE_EXE;
         break;
 
@@ -65,6 +73,8 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
             boss->setMotionRate();
             boss->setMotionLoop(true);
             mState = STATE_SELECT;
+
+            
             return true;
         }
         break;

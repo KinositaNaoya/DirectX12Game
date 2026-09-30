@@ -76,6 +76,7 @@ public:
 	IBossGimmick* GfallCROSS;
 	IBossGimmick* GfallRAND;
 	IBossGimmick* GfallSIDE;
+	IBossGimmick* GfallRING;
 	IBossGimmick* GcangePHASE;
 
 	IBossGimmick* currentGimmick;
@@ -83,6 +84,9 @@ public:
 	IBossPhase* currentPhase;
 
 	vnEmitter* pMoveEffect;
+	vnEmitter* pChargeEffect;
+	ImpactActor* pMoveImpact;
+
 
 	bool getIsDead();
 	void setIsDead(bool b);

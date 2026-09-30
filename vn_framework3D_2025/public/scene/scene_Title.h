@@ -22,7 +22,7 @@ private:
 
 	
 
-	UI_Manager* Manager;
+	UI_Manager* UIManager;
 
 
 	vnModel* Cube;

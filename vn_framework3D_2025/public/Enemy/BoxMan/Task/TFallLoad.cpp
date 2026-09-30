@@ -13,7 +13,6 @@ bool FallLoad::initialize()
 //エネミーから対岸までの直線を落とす攻撃
 bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
 {
-
     //エネミーの出現位置
     int edgeIndex[] = {
          1, 2, 3, 4, 5, 6,
@@ -125,6 +124,11 @@ bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
 
         if (!boss->getMotionEnd())return false;
 
+        for (int i = 0; i < 64; i++)
+        {
+            floor[i]->getEmitterDesc()->LifeMax = 30.0f;
+            floor[i]->getEmitterDesc()->LifeMin = 30.0f;
+        }
 		DoOnce = true;
 
         mState = STATE_EXE;
@@ -176,15 +180,12 @@ bool FallLoad::execute(BoxMan* boss, FloorCube* floor[])
                 {
                     floor[index]->addPositionY(-0.3f);
 
-                    floor[index]->getEmitterDesc()->LifeMax = 30.0f;
-                    floor[index]->getEmitterDesc()->LifeMin = 30.0f;
-                    
-
                     if (floor[index]->getPositionY() > -30.0f){
+                        floor[index]->getEmitter()->setEmit(false);
                         isReached = false;
                     }
                     else{
-                        floor[index]->getEmitter()->setEmit(false);
+                        
                         floor[index]->setPositionY(-100.0f);
                     }
                 }

@@ -172,13 +172,20 @@ bool vnSound::stop()
 
 bool vnSound::isPlaying(void)
 {
-	if (pSourceVoice)
+	/*if (pSourceVoice)
 	{
 		XAUDIO2_VOICE_STATE stat;
 		pSourceVoice->GetState(&stat);
 		return stat.SamplesPlayed > 0 && stat.SamplesPlayed != lastSamplesStopped;
 	}
-	return false;
+	return false;*/
+
+	if (!pSourceVoice)return false;
+
+	XAUDIO2_VOICE_STATE state;
+	pSourceVoice->GetState(&state);
+
+	return state.SamplesPlayed > lastSamplesStopped;
 }
 
 bool vnSound::isStopped()

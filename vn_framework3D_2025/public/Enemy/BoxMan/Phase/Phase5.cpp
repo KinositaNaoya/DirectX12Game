@@ -29,22 +29,18 @@ void Phase5::execute(BoxMan* boss, FloorCube* floor[])
     }
 
     if (isGimmick) {
-        Randnum = rand() % 6;
+        Randnum = rand() % 5;
         switch (Randnum)
         {
         case 0:
-            currentGimmick = boss->GfallLOAD;
-            break;
-        case 1:
-            currentGimmick = boss->GfallEWNS;
-            break;
-        case 2:
-            currentGimmick = boss->GfallSIDE;
-            break;
         case 3:
+            currentGimmick = boss->GfallRING;
+			break;
+        case 1:
         case 5:
             currentGimmick = boss->GfallRAND;
             break;
+        case 2:
         case 4:
             currentGimmick = boss->GfallCROSS;
             break;

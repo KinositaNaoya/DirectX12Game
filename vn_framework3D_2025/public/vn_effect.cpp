@@ -298,6 +298,8 @@ vnEmitter::vnEmitter(stEmitterDesc * desc)
 
 	Desc.SpeedMin = desc->SpeedMin;
 	Desc.SpeedMax = desc->SpeedMax;
+
+	
 }
 
 vnEmitter::~vnEmitter()
@@ -323,26 +325,42 @@ void vnEmitter::execute()
 	for (int i = 0; i < vnPARTICLE_MAX && emit==true; i++) {
 
 		if (EmittedParticleCount >= OneFrameEmittedParticle)break;
-
 		if (pParticle[i].Life > 0.0f)continue;
-		//放出可能なパーティクルの初期設定
+
+
+		//===放出可能なパーティクルの初期設定===
 
 		//寿命の設定
 		pParticle[i].Life = Desc.LifeMin + (Desc.LifeMax - Desc.LifeMin) * getRandNum();
 		pParticle[i].StartLife = pParticle[i].Life;
 
-		//最初の位置の設定
-		pParticle[i].Pos = Position;
 
-		//速度の設定
+		//最初の位置の設定*
+		if (EmitterReverse == true) {
+			float Range = 10.0f;
+
+			pParticle[i].Pos = world + XMVectorSet(
+				(getRandNum() * 2.0f - 1.0f) * Range,
+				(getRandNum() * 2.0f - 1.0f) * Range,
+				(getRandNum() * 2.0f - 1.0f) * Range,
+				0.0f
+			);
+		}
+		else {
+			pParticle[i].Pos = Position;
+		}
+
+		
+
+		//速度の設定*
 		pParticle[i].Vel = XMVectorSet(
 			Desc.SpeedMin.m128_f32[0] + (Desc.SpeedMax.m128_f32[0] - Desc.SpeedMin.m128_f32[0]) * getRandNum(),
 			Desc.SpeedMin.m128_f32[1] + (Desc.SpeedMax.m128_f32[1] - Desc.SpeedMin.m128_f32[1]) * getRandNum(),
 			Desc.SpeedMin.m128_f32[2] + (Desc.SpeedMax.m128_f32[2] - Desc.SpeedMin.m128_f32[2]) * getRandNum(),
 			0.0f
 		);
-
 		pParticle[i].Vel *= 0.1f;
+
 
 		//色の設定
 		pParticle[i].Col = XMVectorSet(
@@ -356,7 +374,6 @@ void vnEmitter::execute()
 		pParticle[i].Size = Desc.SizeMin + (Desc.SizeMax - Desc.SizeMin) * getRandNum();
 		
 		EmittedParticleCount++;
-		//break;
 	}
 	//カメラのビューマトリクスを取得
 	XMMATRIX mBillboard = *vnCamera::getView();
@@ -376,7 +393,15 @@ void vnEmitter::execute()
 		float overLifeTime = pParticle[i].Life / pParticle[i].StartLife;
 
 		pParticle[i].Life -= 1.0f;
-		pParticle[i].Pos += pParticle[i].Vel;
+
+		if (EmitterReverse == true) {
+			XMVECTOR ToTarget = world - pParticle[i].Pos;
+			pParticle[i].Pos += ToTarget * 0.02f;
+		}
+		else {
+			pParticle[i].Pos += pParticle[i].Vel;
+		}
+
 
 #if DebugMode
 		vnDebugDraw::Line(&pParticle[i].Pos, &Position, 0xffffff00);
@@ -496,6 +521,11 @@ void vnEmitter::setDesc(stEmitterDesc* desc)
 void vnEmitter::setEmit(bool flag)
 {
 	emit = flag;
+}
+
+void vnEmitter::setEmitterReverse(bool flag)
+{
+	EmitterReverse = flag;
 }
 
 bool vnEmitter::isEmit()

@@ -171,9 +171,6 @@
     <ClInclude Include="public\scene\scene_Select.h">
       <Filter>public\scene</Filter>
     </ClInclude>
-    <ClInclude Include="public\Object\test.h">
-      <Filter>public\Object</Filter>
-    </ClInclude>
     <ClInclude Include="public\Enemy\EnemyBase.h">
       <Filter>public\Enemy</Filter>
     </ClInclude>
@@ -224,6 +221,12 @@
     </ClInclude>
     <ClInclude Include="public\UI\UIbutton.h">
       <Filter>public\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Object\Impactactor.h">
+      <Filter>public\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Task\TCollapseRing.h">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -332,9 +335,6 @@
     <ClCompile Include="public\scene\scene_Select.cpp">
       <Filter>public\scene</Filter>
     </ClCompile>
-    <ClCompile Include="public\Object\test.cpp">
-      <Filter>public\Object</Filter>
-    </ClCompile>
     <ClCompile Include="public\Enemy\EnemyBase.cpp">
       <Filter>public\Enemy</Filter>
     </ClCompile>
@@ -385,6 +385,12 @@
     </ClCompile>
     <ClCompile Include="public\UI\UIbutton.cpp">
       <Filter>public\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Object\Impactactor.cpp">
+      <Filter>public\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Task\TCollapseRing.cpp">
+      <Filter>public\Enemy\BoxMan\Task</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

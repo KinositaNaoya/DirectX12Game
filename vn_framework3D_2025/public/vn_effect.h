@@ -31,6 +31,7 @@ public:
 	{
 		WCHAR Texture[64] = L"";
 
+
 		float LifeMin = 30.0f;
 		float LifeMax = 60.0f;
 
@@ -46,6 +47,8 @@ public:
 private:
 	//•úo‚·‚é‚©‚Ìƒtƒ‰ƒO
 	bool emit;
+
+	bool EmitterReverse = false;
 
 	stEmitterDesc Desc;
 
@@ -106,6 +109,8 @@ public:
 	void setDesc(stEmitterDesc* desc);
 
 	void setEmit(bool flag);
+
+	void setEmitterReverse(bool flag);
 
 	bool isEmit();
 

@@ -38,6 +38,7 @@ void Phase1::execute(BoxMan* boss, FloorCube* floor[])
             currentGimmick = boss->GfallLOAD;
             break;
         }
+        
         currentGimmick->initialize();
         isGimmick = false;
     }

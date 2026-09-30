@@ -69,7 +69,7 @@ UI_Manager::UI_Manager()
 			64.0f * 3,
 			vnMainFrame::screenCenterY / 2,
 			64.0f * 6,
-			64.0f * 3,
+			64.0f * 6,
 			L"data/image/Black.png");
 		back->setAlpha(0.5f);
 		Key_W = new vnSprite(
@@ -103,11 +103,19 @@ UI_Manager::UI_Manager()
 			64.0f * 2,
 			L"data/image/mouse.png");
 
+		jump = new vnSprite(
+			0.0f,
+			64.0f * 2,
+			64.0f * 4,
+			64.0f * 1.5,
+			L"data/image/space.png");
+
 		Key_W->setParent(back);
 		Key_A->setParent(back);
 		Key_S->setParent(back);
 		Key_D->setParent(back);
 		Mouse->setParent(back);
+		jump->setParent(back);
 
 		vnMainFrame::getSceneInstance()->registerObject(back);
 		vnMainFrame::getSceneInstance()->registerObject(Key_W);
@@ -115,9 +123,14 @@ UI_Manager::UI_Manager()
 		vnMainFrame::getSceneInstance()->registerObject(Key_S);
 		vnMainFrame::getSceneInstance()->registerObject(Key_D);
 		vnMainFrame::getSceneInstance()->registerObject(Mouse);
+		vnMainFrame::getSceneInstance()->registerObject(jump);
+
+		if (!vnMainFrame::getGameLevel())jump->setAlpha(0.0f);
 
 		break;
 	}
+
+
 
 	//一番前に表示したいからレジスターはここ
 	vnMainFrame::getSceneInstance()->registerObject(FadeImage);
@@ -147,6 +160,7 @@ UI_Manager::~UI_Manager()
 		vnMainFrame::getSceneInstance()->deleteObject(Key_S);
 		vnMainFrame::getSceneInstance()->deleteObject(Key_D);
 		vnMainFrame::getSceneInstance()->deleteObject(Mouse);
+		vnMainFrame::getSceneInstance()->deleteObject(jump);
 
 		break;
 	}

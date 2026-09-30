@@ -38,7 +38,7 @@ void Phase3::execute(BoxMan* boss, FloorCube* floor[])
             break;
         case 1:
         case 4:
-            currentGimmick = boss->GfallLOAD;
+            currentGimmick = boss->GfallRING;
             break;
         case 2:
         case 5:

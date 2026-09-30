@@ -61,7 +61,7 @@ void FloorCube::Init()
 	this->setAmbient(0.0f, 0.0f, 0.0f, 1.0f);
 	this->setSpecular(0.0f, 0.0f, 0.0f, 1.0f);
 	this->setRotation(0.0f, 0.0f, 0.0f);
-	this->getEmitter()->setEmit(true);
+	this->getEmitter()->setEmit(false);
 }
 
 

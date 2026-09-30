@@ -21,8 +21,13 @@ EnemyBase::~EnemyBase()
 
 void EnemyBase::TimeUpdate(){
     
+#ifdef _DEBUG
     // デバッグ加速
-    //if (vnKeyboard::on(DIK_P)) Time += 1.0f;
+    if (vnKeyboard::on(DIK_P)) Time += 1.0f;
+
+#endif // DEBUG
+
+    
 
 
     Time += 1.0f / 60.0f;
@@ -174,4 +179,14 @@ float EnemyBase::getEnemyPhaseRate(){
     float phaseTime = fmod(elapsedTime, phaseLength);
 
     return phaseTime / phaseLength;
+}
+
+void EnemyBase::setPlayer_ptr(Player* player)
+{
+	pPlayer = player;
+}
+
+vnObject* EnemyBase::getPlayer_ptr()
+{
+    return pPlayer;
 }

@@ -34,18 +34,21 @@ void Phase2::execute(BoxMan* boss, FloorCube* floor[])
         {
         case 0:
         case 3:
-        case 6:
+        
             currentGimmick = boss->GfallEWNS;
+            
             break;
 
         case 1:
         case 4:
         case 7:
             currentGimmick = boss->GfallSIDE;
+            
             break;
 
         case 2:
         case 5:
+        case 6:
             currentGimmick = boss->GfallCROSS;
             break;
         }

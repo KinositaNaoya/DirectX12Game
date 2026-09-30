@@ -19,6 +19,7 @@ private:
 	vnSprite* Key_D = nullptr;
 	vnSprite* Mouse = nullptr;
 	vnSprite* back = nullptr;
+	vnSprite* jump = nullptr;
 
 public:
 	UI_Manager();

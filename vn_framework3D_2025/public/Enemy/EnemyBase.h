@@ -5,6 +5,7 @@ class EnemyBase : public vnCharacter
 protected:
 
 	Collider::Cube collide;	//物理判定用コライダー
+	
 
 private:
 	
@@ -14,6 +15,7 @@ private:
 	float Minutes = 0.0f;
 	float maxTime = 300.0f;
 	bool isNormal = true;
+	Player* pPlayer = nullptr;
 
 	const float phaseLength = 60.0f;
 
@@ -48,6 +50,9 @@ public:
 	int getEnemyTimer();
 	//フェーズの時間を0～1で返す
 	float getEnemyPhaseRate();
+
+	void setPlayer_ptr(Player* player);
+	vnObject* getPlayer_ptr();
 
 
 	void TimeUpdate();	//エネミーの動きの根幹

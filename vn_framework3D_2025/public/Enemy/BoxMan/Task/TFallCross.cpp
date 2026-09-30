@@ -4,6 +4,7 @@
 bool FallCross::initialize()
 {
     mState = STATE_SELECT;
+	RandCloss = false;
     return false;
 }
 
@@ -20,6 +21,17 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
               51,52,
               59,60,
     };
+
+    int CrossX[40] =
+    { 0, 1,             6, 7,
+      8, 9,10      ,13,14,15,
+	    17,18,19,20,21,22,
+           26,27,28,29,
+           34,35,36,37,
+	    41,42,43,44,45,46,
+	 48,49,50,      53,54,55,
+     56,57,            62,63
+    };
     
     
 
@@ -29,6 +41,13 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
 
         for (int i = 0; i < 64; ++i) {
             floor[i]->Init();
+        }
+
+        if (rand() % 2 == 0) {
+            RandCloss = true; 
+        }
+        else{
+            RandCloss = false;
         }
 
         CurrentPos = *boss->getPosition();
@@ -69,17 +88,34 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
 
 
         // 徐々に赤へ変化
-        for (int i = 0; i < 28; ++i)
-        {
-            int index = Cross[i];
+        
+        if (RandCloss) {
+            for (int i = 0; i < 28; ++i){
+                int index = Cross[i];
 
-            float r = 1.0f;          // 赤最大
-            float g = 1.0f - moveT;      // 徐々に減少
-            float b = 1.0f - moveT;      // 徐々に減少
+                float r = 1.0f;          // 赤最大
+                float g = 1.0f - moveT;      // 徐々に減少
+                float b = 1.0f - moveT;      // 徐々に減少
 
-            floor[index]->setDiffuse(r, g, b, 1.0f);
+                floor[index]->setDiffuse(r, g, b, 1.0f);
+            }
         }
+        else{
+            for (int i = 0; i < 40; ++i)
+            {
+                int index = CrossX[i];
 
+                float r = 1.0f;          // 赤最大
+                float g = 1.0f - moveT;      // 徐々に減少
+                float b = 1.0f - moveT;      // 徐々に減少
+
+                floor[index]->setDiffuse(r, g, b, 1.0f);
+            }
+        }
+        
+
+        
+        
 
         if (!boss->getMotionEnd() && moveT != 1.0f)return false;
 
@@ -95,14 +131,27 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
             // この床が「残す床」か判定
             bool isSafe = true;
 
-            for (int j = 0; j < 28; ++j)
-            {
-                if (i == Cross[j])
+            if (RandCloss) {
+                for (int j = 0; j < 28; ++j)
                 {
-                    isSafe = false;
-                    break;
+                    if (i == Cross[j])
+                    {
+                        isSafe = false;
+                        break;
+                    }
                 }
             }
+            else{
+                for (int j = 0; j < 40; ++j)
+                {
+                    if (i == CrossX[j])
+                    {
+                        isSafe = false;
+                        break;
+                    }
+                }
+            }
+            
 
             if (isSafe) continue;
 

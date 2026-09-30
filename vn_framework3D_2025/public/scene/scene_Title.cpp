@@ -38,7 +38,7 @@ bool SceneTitle::initialize()
     vnCamera::setFovY(1.0f);
 
     addVel = 0.0f;
-    Manager = new UI_Manager();
+    UIManager = new UI_Manager();
     
     //セーブファイル初期化
     std::ofstream file("data/save/SavePhase.txt");
@@ -58,14 +58,14 @@ void SceneTitle::terminate()
     delete(TitleBGM);
     delete(ButtonSE);
     delete(FadeOutSE);
-    delete(Manager);
+    delete(UIManager);
 }
 
 void SceneTitle::execute()
 {
 
 
-    //とりあえずスペースでscene移行
+    //スペースでscene移行
     if (vnKeyboard::trg(DIK_SPACE)){
         if(!ButtonSE->isPlaying()) ButtonSE->play(true);
         TitleBGM->stop();
@@ -83,7 +83,7 @@ void SceneTitle::execute()
 
 void SceneTitle::render()
 {
-    Manager->setButtonActive(!isStart);
+    UIManager->setButtonActive(!isStart);
 
     if (isStart) {
         if (ButtonSE->isStopped() && !FadeOutSE->isPlaying()) {
@@ -98,7 +98,7 @@ void SceneTitle::render()
         TitelObject->addPositionZ(addVel * 2);
 
 
-        if (Manager->FadeIN(addVel * 0.2)) {
+        if (UIManager->FadeIN(addVel * 0.2)) {
             switchScene(SELECT);
         }
     }

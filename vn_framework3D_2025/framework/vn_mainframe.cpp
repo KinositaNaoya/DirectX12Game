@@ -223,6 +223,10 @@ const void vnMainFrame::setGameLevel(bool b)
 	isNormalLevel = b;
 }
 
+/// <summary>
+/// ハードモードかノーマルモードかの判定を返す
+/// </summary>
+/// <returns>true == ノーマルモード</returns>
 const bool vnMainFrame::getGameLevel()
 {
 	return isNormalLevel;

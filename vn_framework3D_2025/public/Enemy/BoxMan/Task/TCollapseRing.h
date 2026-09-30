@@ -1,10 +1,11 @@
 
 
-class FallCross : public IBossGimmick
+class FallRing : public IBossGimmick
 {
 private:
     bool isReached;//‰º‚É“ž’B‚µ‚½‚©‚Ç‚¤‚©
-	bool RandCloss;
+    int CurrentRing = 0;
+	bool isFAST = true;
 
 public:
     bool initialize();
