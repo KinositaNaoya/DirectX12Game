@@ -14,7 +14,7 @@ bool FallRing::execute(BoxMan* boss, FloorCube* floor[])
 {
     switch (mState)
     {
-    case BoxMan::STATE_SELECT:
+    case STATE_SELECT:
         isFAST = true;
         CurrentRing = 0;
         for (int i = 0; i < 64; ++i)
@@ -35,7 +35,7 @@ bool FallRing::execute(BoxMan* boss, FloorCube* floor[])
         break;
 
 
-    case BoxMan::STATE_MOVE:
+    case STATE_MOVE:
 
         moveT += 0.03f;
 
@@ -62,7 +62,7 @@ bool FallRing::execute(BoxMan* boss, FloorCube* floor[])
         break;
 
 
-    case BoxMan::STATE_MOTION:
+    case STATE_MOTION:
 
         if (isFAST) {
             moveT += 1.0f / 45.0f;
@@ -117,7 +117,7 @@ bool FallRing::execute(BoxMan* boss, FloorCube* floor[])
         break;
 
 
-    case BoxMan::STATE_EXE:
+    case STATE_EXE:
     {
         isReached = true;
 

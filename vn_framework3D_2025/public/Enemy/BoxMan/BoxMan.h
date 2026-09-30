@@ -47,16 +47,6 @@ public:
 	
 	bool GameSet_exe();
 
-
-	enum Gimmick
-	{
-		STATE_SELECT,
-		STATE_MOVE,
-		STATE_MOTION,
-		STATE_EXE,
-	};
-	Gimmick mState;
-
 	vnMotionData* motion_idle;
 	vnMotionData* motion_dead;
 	vnMotionData* motion_Move;

@@ -37,7 +37,7 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
 
     switch (mState)
     {
-    case BoxMan::STATE_SELECT:
+    case STATE_SELECT:
 
         for (int i = 0; i < 64; ++i) {
             floor[i]->Init();
@@ -61,7 +61,7 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
         mState = STATE_MOVE;
 
         break;
-    case BoxMan::STATE_MOVE:
+    case STATE_MOVE:
         moveT += 0.03f;
         if (moveT > 1.0f) moveT = 1.0f;
 
@@ -80,7 +80,7 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
         }
 
         break;
-    case BoxMan::STATE_MOTION:
+    case STATE_MOTION:
 
         moveT += 1.0f / 60.0f;
 
@@ -122,7 +122,7 @@ bool FallCross::execute(BoxMan* boss, FloorCube* floor[])
 
         mState = STATE_EXE;
         break;
-    case BoxMan::STATE_EXE:
+    case STATE_EXE:
     {
         isReached = true;
 

@@ -40,10 +40,6 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
 	pMoveImpact = new ImpactActor();
 	vnMainFrame::getSceneInstance()->registerObject(pMoveImpact);
 
-
-
-    //炎のｴﾌｪｸﾄ->寿命に合わせて赤から黄色、サイズも変化
-
     //===ギミック===
     GfallEWNS = new FallEWNS();
     GfallLOAD = new FallLoad();
@@ -124,14 +120,15 @@ void BoxMan::execute(FloorCube* floor[])
         case EnemyBase::PHASE_2:    currentPhase = new Phase2();            break;
         case EnemyBase::PHASE_3:    currentPhase = new Phase3();            break;
         case EnemyBase::PHASE_4:    currentPhase = new Phase4();            break;
-        case EnemyBase::FINAL:      currentPhase = new Phase5();            break;
+        case EnemyBase::FINAL  :    currentPhase = new Phase5();            break;
         case EnemyBase::GAMESET:    currentPhase = new Phase6();            break;
         }
     }
 
     CurrentPhase = ReservePhase;
     if (currentPhase != nullptr) {
-        currentPhase->execute(this, floor);//処理
+
+        currentPhase->execute(this, floor);//現在フェーズの処理
         for (int i = 0; i < 64; i++){ //FloorCubeの数回す
 			floor[i]->execute();
         }
