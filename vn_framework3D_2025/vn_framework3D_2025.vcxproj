@@ -154,6 +154,7 @@
     <ClInclude Include="framework\vn_sound.h" />
     <ClInclude Include="public\Collider.h" />
     <ClInclude Include="public\Enemy\BoxMan\BoxMan.h" />
+    <ClInclude Include="public\Enemy\BoxMan\Phase\BossPhase.h" />
     <ClInclude Include="public\Enemy\BoxMan\Phase\IBossPhase.h" />
     <ClInclude Include="public\Enemy\BoxMan\Phase\Phase1.h" />
     <ClInclude Include="public\Enemy\BoxMan\Phase\Phase2.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="framework\vn_sound.cpp" />
     <ClCompile Include="public\Collider.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\BoxMan.cpp" />
+    <ClCompile Include="public\Enemy\BoxMan\Phase\BossPhase.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Phase\IBossPhase.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Phase\Phase1.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Phase\Phase2.cpp" />

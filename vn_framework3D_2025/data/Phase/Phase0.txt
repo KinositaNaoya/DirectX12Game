@@ -1,0 +1,10 @@
+SkyModel{skydome.vnm}
+BGM{塵の雨と硝煙.wav}
+Gimmick{
+[0]{FallEWNS}
+[1]{FallLOAD}
+[2]{FallLOAD}
+[3]{FallEWNS}
+[4]{FallLOAD}
+[5]{FallLOAD}
+}

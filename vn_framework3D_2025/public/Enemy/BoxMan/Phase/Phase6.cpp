@@ -3,6 +3,7 @@
 
 Phase6::Phase6()
 {
+    //Œ‚”j‰¹
     PhaseBGM = new vnSound(L"data/sound/SE/CHIPTUNEƒmƒCƒY.wav");
     
 }

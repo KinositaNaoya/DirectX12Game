@@ -61,6 +61,17 @@ public:
 
 
 	//ÉMÉ~ÉbÉN
+	enum class GimickID
+	{
+		FallEWNS,
+		FallLOAD,
+		FallCROSS,
+		FallRAND,
+		FallSIDE,
+		FallRING,
+		ChangePHASE,
+	};
+
 	IBossGimmick* GfallEWNS;
 	IBossGimmick* GfallLOAD;
 	IBossGimmick* GfallCROSS;

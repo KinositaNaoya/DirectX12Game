@@ -7,6 +7,7 @@
 #include "../Task/TFallRand.h"
 #include "../Task/TFallSide.h"
 #include "../Task/TCollapseRing.h"
+//ここもギミックマネージャー作れば一つになる
 
 
 //フェーズ用インターフェース

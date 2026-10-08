@@ -228,6 +228,9 @@
     <ClInclude Include="public\Enemy\BoxMan\Task\TCollapseRing.h">
       <Filter>public\Enemy\BoxMan\Task</Filter>
     </ClInclude>
+    <ClInclude Include="public\Enemy\BoxMan\Phase\BossPhase.h">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="vn_framework3D_2025.cpp">
@@ -391,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="public\Enemy\BoxMan\Task\TCollapseRing.cpp">
       <Filter>public\Enemy\BoxMan\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="public\Enemy\BoxMan\Phase\BossPhase.cpp">
+      <Filter>public\Enemy\BoxMan\Phase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
