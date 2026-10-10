@@ -1,0 +1,10 @@
+SkyModel{skycode.vnm}
+BGM{Zero_Time_Outage.wav}
+Gimmick{
+{FallCROSS}
+{FallRING}
+{FallRAND}
+{FallCROSS}
+{FallRING}
+{FallRAND}
+}

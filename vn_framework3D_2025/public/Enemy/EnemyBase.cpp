@@ -19,6 +19,9 @@ EnemyBase::~EnemyBase()
     SaveLevel();
 }
 
+/// <summary>
+/// boss‚Ì“®‚«‚ğXV‚·‚éŠÖ”
+/// </summary>
 void EnemyBase::TimeUpdate(){
     
 #ifdef _DEBUG

@@ -1,0 +1,10 @@
+SkyModel{skycode.vnm}
+BGM{Cyber_Hounds.wav}
+Gimmick{
+{FallLOAD}
+{FallEWNS}
+{FallSIDE}
+{FallRING}
+{FallRAND}
+{FallCROSS}
+}

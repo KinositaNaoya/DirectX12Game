@@ -3,16 +3,18 @@
 #include "../../../../framework/vn_environment.h"
 
 
-class PhaseCange : public IBossGimmick
+class Standby : public IBossGimmick
 {
 private:
     vnSound* SkyChangeSE;
-    bool DoOnce;
+    float t = 0.0f;
+	float y = 0.0f;
 
 public:
+
     bool initialize();
 
-    PhaseCange();
-    ~PhaseCange();
+    Standby();
+    ~Standby();
     bool execute(BoxMan* boss, FloorCube* floor[]) override;
 };

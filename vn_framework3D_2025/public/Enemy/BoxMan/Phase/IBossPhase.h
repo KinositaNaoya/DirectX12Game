@@ -16,7 +16,7 @@ class IBossPhase
 public:
 	bool isGimmick;//ギミック完了か否か
 	int Randnum;	//ランダム用
-	IBossGimmick* currentGimmick;
+	//IBossGimmick* currentGimmick;
 	vnSound* PhaseBGM;
 	vnModel* pPhase_skyModel;
 	bool DoOnce;

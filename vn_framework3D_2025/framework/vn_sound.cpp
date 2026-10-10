@@ -128,7 +128,9 @@ vnSound::vnSound(const WCHAR *path)
 
 vnSound::~vnSound()
 {
-	pSourceVoice->DestroyVoice();
+	if (pSourceVoice) {
+		pSourceVoice->DestroyVoice();
+	}
 	if(xbuf.pAudioData)delete[] xbuf.pAudioData;
 }
 

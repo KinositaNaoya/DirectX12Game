@@ -1,0 +1,10 @@
+SkyModel{T_skycube.vnm}
+BGM{Kurba.wav}
+Gimmick{
+{FallRING}
+{FallRAND}
+{FallCROSS}
+{FallRING}
+{FallRAND}
+{FallCROSS}
+}

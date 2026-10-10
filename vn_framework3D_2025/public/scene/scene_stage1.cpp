@@ -1,7 +1,6 @@
 #include "../../framework.h"
 #include "../../framework/vn_environment.h"
 
-
 bool SceneSTAGE_1::initialize()
 {
     Debug = false;

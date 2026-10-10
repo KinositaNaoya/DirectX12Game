@@ -1,5 +1,4 @@
-#include "../../../../framework.h"
-#include "../../../../framework/vn_environment.h"
+#include"TPhaseCange.h"
 
 bool PhaseCange::initialize()
 {
@@ -35,7 +34,7 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
         boss->setPositionZ(0.0f);
         SkyChangeSE->play(true);
 
-        boss->currentPhase->pPhase_skyModel->setPositionY(0.0f);
+        boss->PhaseManager->pPhase_skyModel->setPositionY(0.0f);
         //boss->pMoveEffect->setEmit(true);
         boss->pChargeEffect->setEmit(true);
 
@@ -66,8 +65,8 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
         //Šg‘å‘Ò‚¿
     case STATE_EXE:
 
-        if (boss->currentPhase->pPhase_skyModel->getScaleX() < 2.5f) {
-            boss->currentPhase->pPhase_skyModel->addScale(0.01f, 0.01f, 0.01f);
+        if (boss->PhaseManager->pPhase_skyModel->getScaleX() < 2.5f) {
+            boss->PhaseManager->pPhase_skyModel->addScale(0.01f, 0.01f, 0.01f);
         }
         else {
             boss->setMotionRate();

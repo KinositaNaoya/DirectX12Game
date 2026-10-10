@@ -1,0 +1,12 @@
+SkyModel{skystar.vnm}
+BGM{Egoist_2.wav}
+Gimmick{
+{GfallEWNS}
+{GfallSIDE}
+{FallCROSS}
+{FallEWNS}
+{FallSIDE}
+{FallCROSS}
+{FallCROSS}
+{FallSIDE}
+}

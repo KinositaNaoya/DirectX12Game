@@ -251,7 +251,9 @@ void UI_Manager::PhaseTimerUI(EnemyBase* enemy)
 
 void UI_Manager::ShowSafeAreaUI(EnemyBase* enemy)
 {
+
 	if (enemy->getPhase() == EnemyBase::STANDBY)return;
+
 	if(back->posX >= -200.0f)back->posX -= 2.0f;
 	
 }

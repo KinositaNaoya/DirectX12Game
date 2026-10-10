@@ -1,5 +1,8 @@
 #pragma once
 
+#include"../Enemy/BoxMan/BoxMan.h"
+
+class BoxMan;
 
 class SceneSTAGE_1 : public vnScene
 {

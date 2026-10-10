@@ -1,35 +1,12 @@
 #pragma once
 
-class IBossPhase;
+#include "../../../framework.h"
+#include "../../../framework/vn_environment.h"
 
-//ギミック用インターフェース
-class IBossGimmick
-{
-public:
-	IBossGimmick();
+#include"../EnemyBase.h"
+#include"Phase/BossPhase.h"
 
-	XMVECTOR EAST = XMVectorSet(23.0f, 0.0f, 0.0f, 0.0f);	//東
-	XMVECTOR WEST = XMVectorSet(-23.0f, 0.0f, 0.0f, 0.0f);	//西
-	XMVECTOR NORTH = XMVectorSet(0.0f, 0.0f, -23.0f, 0.0f);	//南
-	XMVECTOR SOUTH = XMVectorSet(0.0f, 0.0f, 23.0f, 0.0f);	//北
-
-	XMVECTOR CurrentPos;
-	XMVECTOR TargetPos;
-	float moveT;//lerp用
-	bool DoOnce;//一度だけ実行する処理用
-
-	enum Gimmick
-	{
-		STATE_SELECT,
-		STATE_MOVE,
-		STATE_MOTION,
-		STATE_EXE,
-	};
-	Gimmick mState;
-
-	virtual bool initialize() = 0;
-	virtual bool execute(class BoxMan* boss, FloorCube* floor[]) = 0;
-};
+class BossPhase;
 
 
 
@@ -59,31 +36,6 @@ public:
 	vnMotionData* motion_FallRand;
 	vnMotionData* motion_FallCross;
 
-
-	//ギミック
-	enum class GimickID
-	{
-		FallEWNS,
-		FallLOAD,
-		FallCROSS,
-		FallRAND,
-		FallSIDE,
-		FallRING,
-		ChangePHASE,
-	};
-
-	IBossGimmick* GfallEWNS;
-	IBossGimmick* GfallLOAD;
-	IBossGimmick* GfallCROSS;
-	IBossGimmick* GfallRAND;
-	IBossGimmick* GfallSIDE;
-	IBossGimmick* GfallRING;
-	IBossGimmick* GcangePHASE;
-
-	IBossGimmick* currentGimmick;
-
-	IBossPhase* currentPhase;
-
 	vnEmitter* pMoveEffect;
 	vnEmitter* pChargeEffect;
 	ImpactActor* pMoveImpact;
@@ -92,6 +44,7 @@ public:
 	bool getIsDead();
 	void setIsDead(bool b);
 
+	BossPhase* PhaseManager;//フェーズ管理オブジェクト
 
 private:
 
@@ -100,7 +53,7 @@ private:
 	XMVECTOR BossBackPos = XMVectorSet(0.0f,0.0f,0.0f,0.0f);
 
 
-
+	
 	
 	
 	bool DoOnce;//PhaseChange専用

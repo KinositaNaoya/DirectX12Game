@@ -1,5 +1,4 @@
-#include "../../../framework.h"
-#include "../../../framework/vn_environment.h"
+#include "BoxMan.h"
 
 BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
 {
@@ -40,15 +39,7 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
 	pMoveImpact = new ImpactActor();
 	vnMainFrame::getSceneInstance()->registerObject(pMoveImpact);
 
-    //===ギミック===
-    GfallEWNS = new FallEWNS();
-    GfallLOAD = new FallLoad();
-    GfallCROSS = new FallCross();
-    GfallRAND = new FallRand();
-    GfallSIDE = new FallSide();
-	GfallRING = new FallRing();
-
-    GcangePHASE = new PhaseCange();
+    
 
 
     //===共有モーション===
@@ -66,8 +57,9 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
     motion_FallCross = loadMotionFile(L"data/model/Enemy1/motion/FallCross.mot");
     setMotion(motion_idle);
     
-    currentPhase = new Phase0();
-    currentGimmick = nullptr;
+
+	PhaseManager = new BossPhase();
+
 }
 
 BoxMan::~BoxMan()
@@ -85,13 +77,7 @@ BoxMan::~BoxMan()
     deleteMotionFile(motion_FallCross);
     
 
-    delete(GfallEWNS);
-    delete(GfallLOAD);
-    delete(GfallCROSS);
-    delete(GfallRAND);
-    delete(GfallSIDE);
-    delete(GfallRING);
-    delete(currentPhase);
+	delete(PhaseManager);
 
 	vnMainFrame::getSceneInstance()->deleteObject(pMoveEffect);
 	vnMainFrame::getSceneInstance()->deleteObject(pChargeEffect);
@@ -108,31 +94,11 @@ void BoxMan::execute(FloorCube* floor[])
     XMVECTOR tempPos = *getPosition() + -forwardPos * 0.5f;
     pMoveEffect->setPosition(&tempPos);
 
-    //フェーズ更新処理
-    if (CurrentPhase != ReservePhase)
-    {
-        delete(currentPhase);
-        currentPhase = nullptr;
-        switch (ReservePhase)
-        {
-        case EnemyBase::STANDBY:    currentPhase = new Phase0();            break;
-        case EnemyBase::PHASE_1:    currentPhase = new Phase1();            break;
-        case EnemyBase::PHASE_2:    currentPhase = new Phase2();            break;
-        case EnemyBase::PHASE_3:    currentPhase = new Phase3();            break;
-        case EnemyBase::PHASE_4:    currentPhase = new Phase4();            break;
-        case EnemyBase::FINAL  :    currentPhase = new Phase5();            break;
-        case EnemyBase::GAMESET:    currentPhase = new Phase6();            break;
-        }
-    }
 
-    CurrentPhase = ReservePhase;
-    if (currentPhase != nullptr) {
+	PhaseManager->ChangePhase(this,ReservePhase);
 
-        currentPhase->execute(this, floor);//現在フェーズの処理
-        for (int i = 0; i < 64; i++){ //FloorCubeの数回す
-			floor[i]->execute();
-        }
-    }
+	PhaseManager->execute(this, floor);
+
     
 	
     vnCharacter::execute();
@@ -176,19 +142,4 @@ bool BoxMan::getIsDead()
 void BoxMan::setIsDead(bool b)
 {
     isDead = b;
-}
-
-
-
-//=============ギミック関数=================
-
-IBossGimmick::IBossGimmick()
-{
-	DoOnce = true;
-    initialize();
-}
-
-bool IBossGimmick::initialize()
-{
-    return false;
 }

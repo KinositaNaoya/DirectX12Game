@@ -47,6 +47,7 @@
 #include <strsafe.h>
 #include <random>
 #include <fstream>
+#include <string>
 
 //DirectXÉwÉbÉ_Å[
 #include <d2d1_3.h>
@@ -112,16 +113,16 @@ using namespace DirectX;
 #include "../public/FieldObject.h"
 #include "../public/Object/Impactactor.h"
 
-#include "../public/Enemy/BoxMan/BoxMan.h"
+//#include "../public/Enemy/BoxMan/BoxMan.h"
 
-#include "../public/Enemy/BoxMan/Phase/IBossPhase.h"
-#include "../public/Enemy/BoxMan/Phase/Phase0.h"
-#include "../public/Enemy/BoxMan/Phase/Phase1.h"
-#include "../public/Enemy/BoxMan/Phase/Phase2.h"
-#include "../public/Enemy/BoxMan/Phase/Phase3.h"
-#include "../public/Enemy/BoxMan/Phase/Phase4.h"
-#include "../public/Enemy/BoxMan/Phase/Phase5.h"
-#include "../public/Enemy/BoxMan/Phase/Phase6.h"
+//#include "../public/Enemy/BoxMan/Phase/IBossPhase.h"
+//#include "../public/Enemy/BoxMan/Phase/Phase0.h"
+//#include "../public/Enemy/BoxMan/Phase/Phase1.h"
+//#include "../public/Enemy/BoxMan/Phase/Phase2.h"
+//#include "../public/Enemy/BoxMan/Phase/Phase3.h"
+//#include "../public/Enemy/BoxMan/Phase/Phase4.h"
+//#include "../public/Enemy/BoxMan/Phase/Phase5.h"
+//#include "../public/Enemy/BoxMan/Phase/Phase6.h"
 
 
 #include "../public/scene/vn_scene.h"

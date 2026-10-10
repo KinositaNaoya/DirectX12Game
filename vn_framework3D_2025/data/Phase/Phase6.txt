@@ -2,9 +2,4 @@ SkyModel{skydome.vnm}
 BGM{塵の雨と硝煙.wav}
 Gimmick{
 {FallEWNS}
-{FallLOAD}
-{FallLOAD}
-{FallEWNS}
-{FallLOAD}
-{FallLOAD}
 }
