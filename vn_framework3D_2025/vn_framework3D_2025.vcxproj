@@ -155,7 +155,6 @@
     <ClInclude Include="public\Collider.h" />
     <ClInclude Include="public\Enemy\BoxMan\BoxMan.h" />
     <ClInclude Include="public\Enemy\BoxMan\Phase\BossPhase.h" />
-    <ClInclude Include="public\Enemy\BoxMan\Phase\Phase0.h" />
     <ClInclude Include="public\Enemy\BoxMan\Phase\Phase6.h" />
     <ClInclude Include="public\Enemy\BoxMan\Task\GimmickBase.h" />
     <ClInclude Include="public\Enemy\BoxMan\Task\TaskManager.h" />
@@ -212,7 +211,6 @@
     <ClCompile Include="public\Collider.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\BoxMan.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Phase\BossPhase.cpp" />
-    <ClCompile Include="public\Enemy\BoxMan\Phase\Phase0.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Phase\Phase6.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Task\GimmickBase.cpp" />
     <ClCompile Include="public\Enemy\BoxMan\Task\TaskManager.cpp" />
