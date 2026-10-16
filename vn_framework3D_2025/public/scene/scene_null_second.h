@@ -10,6 +10,9 @@ class SceneNullTest2 : public vnScene
 {
 private:
 
+	vnModel* pModel;		//ƒ‚ƒfƒ‹
+	vnModel* pModel2;		//ƒ‚ƒfƒ‹
+
 	vnModel* pSky;		//‹ó
 	bool Debug = false;
 

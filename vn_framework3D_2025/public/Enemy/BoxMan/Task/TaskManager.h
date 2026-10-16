@@ -13,6 +13,7 @@
 #include"TFallSide.h"
 #include"TPhaseCange.h"
 #include"TStandby.h"
+#include"TGameEnd.h"
 
 
 //タスクマネージャークラス

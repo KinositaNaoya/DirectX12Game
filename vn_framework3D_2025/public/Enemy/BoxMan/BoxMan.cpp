@@ -60,6 +60,8 @@ BoxMan::BoxMan(const WCHAR* folder, const WCHAR* file):EnemyBase(folder,file)
 
 	PhaseManager = new BossPhase();
 
+    setSkipPhase(PHASE_4);
+
 }
 
 BoxMan::~BoxMan()

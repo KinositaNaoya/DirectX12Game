@@ -10,28 +10,38 @@ vnMotionData* motion_walk;
 
 bool SceneNullTest2::initialize()
 {
-    
+    pModel = new vnModel(L"data/model/", L"skydome.vnm");
+	pModel->setLighting(false);
+	pModel->setScale(1.0f, 1.0f, 1.0f);
+	pModel->setPosition(1.0f, 0.0f, 0.0f);
+    pModel2 = new vnModel(L"data/model/", L"T_skyCube_half_size.vnm");
+    pModel2->setDoubleSided(true);
+	pModel2->setLighting(false);
+    pModel2->setScale(1.0f, 1.0f, 1.0f);
+	pModel2->setPosition(0.0f, 0.0f, 0.0f);
 
     Debug = true;
     vnCamera::setPosition(vnMainFrame::getInitPosition());
-    pSky = new vnModel(L"data/model/", L"skydome.vnm");
-    pSky->setLighting(false);
+    /*pSky = new vnModel(L"data/model/", L"skydome.vnm");
+    pSky->setLighting(false);*/
 
-    registerObject(pSky);
+    //registerObject(pSky);
+    registerObject(pModel);
+    registerObject(pModel2);
 
 
-    
+
 
     return true;
 }
 
 void SceneNullTest2::terminate()
 {
-    
+    //deleteObject(pSky);
+    deleteObject(pModel);
+    deleteObject(pModel2);
 
-    deleteObject(pSky);
 
-    
 }
 
 void SceneNullTest2::execute()

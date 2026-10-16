@@ -5,7 +5,6 @@ BossPhase::BossPhase()
 	pTaskManager = new TaskManager();
     LoadPhaseData(L"data/Phase/Phase0.txt");
 	isGimmick = true;
-
 }
 
 BossPhase::~BossPhase()
@@ -42,6 +41,8 @@ void BossPhase::execute(BoxMan* boss, FloorCube* floor[]) {
     if (floor == nullptr || boss == nullptr)
         return;
 
+    pPhase_skyModel->addRotationY(0.001f);
+
     // BGM再生
     if (PhaseBGM != nullptr && !PhaseBGM->isPlaying())
     {
@@ -50,10 +51,14 @@ void BossPhase::execute(BoxMan* boss, FloorCube* floor[]) {
 
     //フェーズチェンジ処理
     if (DoOnce) {
+
+        //最初だけスキップ
         if(boss->CurrentPhase != EnemyBase::PHASE_1){
-            CurrentgimmickName = L"ChangePHASE";
-            isGimmick = false;
-            DoOnce = false;
+            if (boss->CurrentPhase != EnemyBase::GAMESET) {
+                CurrentgimmickName = L"ChangePHASE";
+                isGimmick = false;
+                DoOnce = false;
+            }
 		}
     }
 
@@ -62,8 +67,6 @@ void BossPhase::execute(BoxMan* boss, FloorCube* floor[]) {
     {
         if (!phaseGimmicks.empty())
         {
-
-
 			// ギミック数を基準にランダムで選ぶ
             int index = rand() % static_cast<int>(phaseGimmicks.size());
 
@@ -143,6 +146,7 @@ void BossPhase::LoadPhaseData(const wchar_t* filePath)
             }
 
             pPhase_skyModel = new vnModel(L"data/model/", modelName.c_str());
+            pPhase_skyModel->setDoubleSided(true);
             pPhase_skyModel->setLighting(false);
             pPhase_skyModel->setScale(5.0f, 5.0f, 5.0f);
             vnMainFrame::getSceneInstance()->registerObject(pPhase_skyModel);
@@ -187,7 +191,7 @@ void BossPhase::LoadPhaseData(const wchar_t* filePath)
                     break;
                 }
 
-                // { と } を探す
+                // {  }(鍵括弧) を探す
                 size_t start = line.find(L'{');
                 size_t end = line.find(L'}');
 
@@ -197,9 +201,8 @@ void BossPhase::LoadPhaseData(const wchar_t* filePath)
                     continue;
                 }
 
-                // [0]{FallEWNS} の { } の中身
-                std::wstring gimmickName =
-                    line.substr(start + 1, end - start - 1);
+                // 例 [0]{FallEWNS} の { } の中身
+                std::wstring gimmickName = line.substr(start + 1, end - start - 1);
 
                 // 空でなければ追加
                 if (!gimmickName.empty())

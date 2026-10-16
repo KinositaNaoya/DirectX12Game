@@ -13,6 +13,7 @@ TaskManager::TaskManager()
 	gimmickList[L"FallRING"]	= new FallRing();
 	gimmickList[L"ChangePHASE"] = new PhaseCange();
 	gimmickList[L"Standby"]     = new Standby();
+	gimmickList[L"GameEnd"]     = new GameEnd();
 }
 
 TaskManager::~TaskManager()
@@ -25,5 +26,6 @@ TaskManager::~TaskManager()
     delete(gimmickList[L"FallRING"]);
     delete(gimmickList[L"ChangePHASE"]);
     delete(gimmickList[L"Standby"]);
+	delete(gimmickList[L"GameEnd"]);
   
 }

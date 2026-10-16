@@ -1,4 +1,4 @@
-SkyModel{T_skycube.vnm}
+SkyModel{T_skyCube_half_size.vnm}
 BGM{Kurba.wav}
 Gimmick{
 {FallRING}

@@ -1,5 +1,5 @@
-SkyModel{skydome.vnm}
-BGM{塵の雨と硝煙.wav}
+SkyModel{T_skyCube_half_size.vnm}
+BGM{}
 Gimmick{
-{FallEWNS}
+{GameEnd}
 }
