@@ -3,7 +3,7 @@
 BossPhase::BossPhase()
 {
 	pTaskManager = new TaskManager();
-    LoadPhaseData(L"data/Phase/Phase0.txt");
+    LoadPhaseData(L"data/Phase/Standby.txt");
 	isGimmick = true;
 }
 
@@ -22,13 +22,13 @@ void BossPhase::ChangePhase(class BoxMan* Boss, EnemyBase::PHASETABLE ReservePha
 
         switch (ReservePhase)
         {
-        case EnemyBase::STANDBY:    LoadPhaseData(L"data/Phase/Phase0.txt");    break;
+        case EnemyBase::STANDBY:    LoadPhaseData(L"data/Phase/Standby.txt");    break;
         case EnemyBase::PHASE_1:    LoadPhaseData(L"data/Phase/Phase1.txt");    break;
         case EnemyBase::PHASE_2:    LoadPhaseData(L"data/Phase/Phase2.txt");    break;
         case EnemyBase::PHASE_3:    LoadPhaseData(L"data/Phase/Phase3.txt");    break;
         case EnemyBase::PHASE_4:    LoadPhaseData(L"data/Phase/Phase4.txt");    break;
-        case EnemyBase::FINAL:      LoadPhaseData(L"data/Phase/Phase5.txt");    break;
-        case EnemyBase::GAMESET:    LoadPhaseData(L"data/Phase/Phase6.txt");    break;
+        case EnemyBase::PHASE_5:    LoadPhaseData(L"data/Phase/Phase5.txt");    break;
+        case EnemyBase::GAMESET:    LoadPhaseData(L"data/Phase/GameSet.txt");    break;
         }
         DoOnce = true;
     }
@@ -117,7 +117,7 @@ void BossPhase::LoadPhaseData(const wchar_t* filePath)
 	std::wifstream file(filePath);  //全文
 
     if (!file) {
-        MessageBox(NULL, L"PhaseFile読み込みエラー", L"エラー", MB_OK | MB_ICONERROR);
+        MessageBox(NULL, L"PhaseFile読み込みエラー", filePath, MB_OK | MB_ICONERROR);
 		return;
     }
 

@@ -239,7 +239,7 @@ void UI_Manager::PhaseTimerUI(EnemyBase* enemy)
 	case EnemyBase::PHASE_4:
 		vnFont::print(400.0f, 0.0f, L"PHASE 4");
 		break;
-	case EnemyBase::FINAL:
+	case EnemyBase::PHASE_5:
 		vnFont::print(400.0f, 0.0f, L"FINAL");
 		break;
 	case EnemyBase::GAMESET:

@@ -33,7 +33,7 @@ public:
 		PHASE_2,
 		PHASE_3,
 		PHASE_4,
-		FINAL,
+		PHASE_5,
 		GAMESET
 	};
 	PHASETABLE ReservePhase = STANDBY;

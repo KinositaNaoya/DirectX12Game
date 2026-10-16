@@ -62,6 +62,7 @@ void EnemyBase::TimeUpdate(){
 //フェーズをスキップする関数
 void EnemyBase::setSkipPhase(PHASETABLE Phase)
 {
+
     switch (Phase)
     {
     case EnemyBase::STANDBY:
@@ -79,7 +80,7 @@ void EnemyBase::setSkipPhase(PHASETABLE Phase)
     case EnemyBase::PHASE_4:
         elapsedTime = 180.0f;
         break;
-    case EnemyBase::FINAL:
+    case EnemyBase::PHASE_5:
         elapsedTime = 240.0f;
         break;
     case EnemyBase::GAMESET:
@@ -144,7 +145,7 @@ void EnemyBase::UpdatePhase()
     }
     else if (elapsedTime < 300.0f)
     {
-        ReservePhase = FINAL;
+        ReservePhase = PHASE_5;
     }
     else
     {
