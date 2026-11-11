@@ -160,10 +160,8 @@ void Player::execute()
 	//自分の位置の更新
 	addPosition(&MoveVector);
 	addPosition(&Velocity);
-	if (XMVectorGetY(Velocity) > 0.1f) {
 
-	}
-
+	//プレイヤーのモーションの切り替え
 	if (air) {
 		setMotionLoop(false);
 		setMotion(motion_jump);
@@ -174,7 +172,6 @@ void Player::execute()
 	else if (XMVectorGetX(XMVector3Length(MoveVector)) == 0.0f) {
 		
 		setMotion(motion_idle);
-
 	}
 
 	vnCharacter::execute();

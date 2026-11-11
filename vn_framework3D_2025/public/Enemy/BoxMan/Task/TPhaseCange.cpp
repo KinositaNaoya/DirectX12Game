@@ -70,8 +70,6 @@ bool PhaseCange::execute(BoxMan* boss, FloorCube* floor[])
 
         }
         else {
-
-           
             boss->setMotionRate();
             boss->setMotionLoop(true);
             mState = STATE_SELECT;
